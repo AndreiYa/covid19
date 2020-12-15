@@ -17,7 +17,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "English for Kids",
+      title: "Covid19 Dashboard",
       favicon: paths.src + '/images/favicon.png',
       template: paths.src + '/template.html',
       filename: "index.html",
