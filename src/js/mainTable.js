@@ -1,4 +1,10 @@
-/* eslint-disable no-console */
+/* eslint-disable */
+import globalConst from "./globalConst";
+
+const renderMainTable = () => {
+    lastUpdateData.textContent = globalConst.api.Date;
+}
+
 const globalData = document.createElement("div");
 globalData.className = "global__data";
 document.body.append(globalData);
@@ -23,25 +29,34 @@ document.body.append(lastUpdate);
 lastUpdate.append(lastUpdateTitle, lastUpdateData);
 
 for (let i = 0; i < 6; i += 1) {
-  const globalItem = document.createElement("div");
-  const globalItemTitle = document.createElement("div");
-  const globalItemData = document.createElement("div");
+    const globalItem = document.createElement("div");
+    const globalItemTitle = document.createElement("div");
+    const globalItemData = document.createElement("div");
 
-  globalItem.className = "global__item";
-  globalItemData.className = "global__item-title";
-  globalItemData.classList = "global__item-data";
+    globalItem.className = "global__item";
+    globalItemData.className = "global__item-title";
+    globalItemData.classList = "global__item-data";
 
-  globalItemWrapper.append(globalItem);
-  globalItem.append(globalItemTitle, globalItemData);
+    globalItemWrapper.append(globalItem);
+    globalItem.append(globalItemTitle, globalItemData);
 }
 
-async function getData() {
-  const apiCountryUrl = "https://api.covid19api.com/summary";
-  const res = await fetch(apiCountryUrl);
-  const data = await res.json();
-  console.log(data);
-  console.log(data.Date);
-  lastUpdateData.textContent = data.Date;
+const getDataAPI = (url) => {
+    fetch(url)
+        .then((res) => res.json())
+        .then((data) => {
+            globalConst.api = data;
+        })
+        .catch((err) => {
+            console.log('Oops! Error: ', err);
+            return undefined;
+        });
 }
 
-getData();
+setTimeout(() => {
+    globalConst.currentRegion._name = 'Belarus';
+}, 10000);
+
+getDataAPI('https://api.covid19api.com/summary');
+
+export default renderMainTable;
