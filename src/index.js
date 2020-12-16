@@ -1,2 +1,5 @@
+import "./js/globalConst";
 import "./styles/main.scss";
-import "./js/mainTable";
+import "./js/globalData";
+import "./js/countryList";
+import "./js/descr";
