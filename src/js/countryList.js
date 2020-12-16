@@ -10,9 +10,9 @@ document.body.append(countryListWrapper);
 
 function makeCountryList() {
   global.getFlag().then((dataFlag) => {
-    console.log(dataFlag)
+    // console.log(dataFlag)
     global.getData().then((data) => {
-      console.log(data)
+      // console.log(data)
       for (const key in data.Countries) {
         const countryItem = document.createElement("div");
         const countryName = document.createElement("div");
