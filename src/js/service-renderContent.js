@@ -1,14 +1,14 @@
 /* eslint-disable */
 
 import renderMap from './module-map';
-import renderMainTable from './module-mainTable';
 import renderLocalTable from './module-localTable';
 import renderChart from './module-chart';
 import renderDate from './module-date';
+import * as mainTable from './module-mainTable';
 
 const renderModules = [
     renderMap,
-    renderMainTable,
+    mainTable.renderMainTable,
     renderLocalTable,
     renderChart,
     renderDate

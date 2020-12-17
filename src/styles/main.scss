@@ -34,6 +34,11 @@ div {
     grid-area: cases;
 }
 
+.cases-by__list {
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
 #global {
     grid-area: global;
 }

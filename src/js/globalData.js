@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 import renderAll from "./service-renderContent";
+import * as mainTable from './module-mainTable';
 
 const globalConst = {
     currentRegion: {
@@ -39,6 +40,7 @@ getData().then((data) => {
     }
     globalConst.dataAPI.lastUpdate = data.Date;
     globalConst.currentRegion._name = 'Belarus';
+    mainTable.makeCountryList();
 });
 
 export async function getFlag() {
