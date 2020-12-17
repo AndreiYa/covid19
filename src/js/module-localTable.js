@@ -47,6 +47,7 @@ globalRecovered.appendChild(globalRecoveredList);
 /* MODULE TEMPLATE END */
 
 const renderLocalTable = () => {
+    //if we use append => we should remove childs
     console.log('localTable: ', globalConst.currentRegion.name);
     globalDeathList.innerHTML = `
       <li class="global-death__country">

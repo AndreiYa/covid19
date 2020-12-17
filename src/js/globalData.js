@@ -40,6 +40,7 @@ getData().then((data) => {
     }
     globalConst.dataAPI.lastUpdate = data.Date;
     globalConst.currentRegion._name = 'Belarus';
+    //need add sort func
     mainTable.makeCountryList();
 });
 
@@ -52,25 +53,13 @@ export async function getFlag() {
 }
 
 getFlag().then((dataFlag) => {
-    for (const key in dataFlag) {
-        // console.log(dataFlag[key])
-        globalConst.dataAPI.countryFlag[key] = dataFlag[key];
-    }
-});
-
-
-// const getDataAPI = (url) => {
-//     fetch(url)
-//         .then((res) => res.json())
-//         .then((data) => {
-//             globalConst.api = data;
-//             //INIT SETTER WHEN ASSIG CURRREGION_NAME
-//             globalConst.currentRegion._name = 'Belarus';
-//         })
-//         .catch((err) => {
-//             console.log('Oops! Error: ', err);
-//             return undefined;
-//         });
-// }
+        for (const key in dataFlag) {
+            // console.log(dataFlag[key])
+            globalConst.dataAPI.countryFlag[key] = dataFlag[key];
+        }
+    })
+    .catch(err => {
+        console.log('Oops!: ', err);
+    });
 
 export default globalConst;
