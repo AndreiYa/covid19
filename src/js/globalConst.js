@@ -10,7 +10,7 @@ const globalConst = {
     set _name(value) {
       console.log("setter!");
       this.name = value;
-      renderAll();
+      // renderAll();
     },
   },
   dataAPI: {

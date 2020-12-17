@@ -40,11 +40,16 @@ body{
 }
 
 .info__wrapper{
-  width: 300px;
+  width: 200px;
   height: 500px;
 }
 
 .country__wrapper{
-  height: 400px;
+  height: 200px;
   overflow-y: scroll;
+}
+
+#mapid {
+  height: 350px;
+  width: 600px;
 }

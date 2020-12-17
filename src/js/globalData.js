@@ -4,7 +4,7 @@
 /* eslint-disable no-console */
 import globalConst from "./globalConst";
 
-console.log(globalConst)
+console.log(globalConst);
 export async function getData() {
   const apiCountryUrl = "https://api.covid19api.com/summary";
   const res = await fetch(apiCountryUrl);
