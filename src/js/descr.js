@@ -1,6 +1,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-console */
 import * as global from "./globalData";
+import * as json from "./countries.json";
 
 const blockInfo = document.createElement("div");
 const countryTitle = document.createElement("div");
@@ -32,7 +33,24 @@ blockInfo.append(countryTitle,
   totalDeaths,
   totalRecovered);
 
+export const mymap = L.map("mapid").setView([45, 0], 1);
+// var mymap = L.map('mapid').setView([51.505, -0.09], 1);
+
+L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+  // attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+  maxZoom: 18,
+  id: "mapbox/dark-v10",
+  tileSize: 512,
+  zoomOffset: -1,
+  accessToken: "pk.eyJ1IjoiYW5kcmVpeWEiLCJhIjoiY2tpcnBqeGFmMGUyZTJ6bjRzdnlycjRpcyJ9.X_IoWStY2eEjv2duSjMIiA",
+}).addTo(mymap);
+
 function showInfo(country) {
+  for (const key in json) {
+    if (json[key].name === country) {
+      mymap.setView(json[key].latlng, 5);
+    }
+  }
   global.getData().then((data) => {
     global.getFlag().then((dataFlag) => {
       for (const key in data.Countries) {
@@ -49,21 +67,5 @@ function showInfo(country) {
     });
   });
 }
-let latlng = [53, 28];
-let zoom = 3;
-
-const mymap = L.map('mapid').setView(latlng = [20, 20], zoom = 1);
-// var mymap = L.map('mapid').setView([51.505, -0.09], 1);
-
-L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-    // attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    maxZoom: 18,
-    id: 'mapbox/dark-v10',
-    tileSize: 512,
-    zoomOffset: -1,
-    accessToken: 'pk.eyJ1IjoiYW5kcmVpeWEiLCJhIjoiY2tpcnBqeGFmMGUyZTJ6bjRzdnlycjRpcyJ9.X_IoWStY2eEjv2duSjMIiA'
-}).addTo(mymap);
-
-
 
 export default showInfo;

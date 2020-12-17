@@ -40,7 +40,6 @@ function makeCountryList() {
       const country = document.querySelectorAll(".country__item-wrapper");
       country.forEach((item) => {
         item.addEventListener("click", (e) => {
-          // console.log(e.target.parentNode);
           const target = e.target.parentNode.getAttribute("country");
           showInfo(target);
         });
