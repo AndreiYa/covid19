@@ -37,6 +37,18 @@ div {
 .cases-by__list {
     max-height: 300px;
     overflow-y: scroll;
+    .country__item-wrapper {
+        display: flex;
+        margin: 5px 0;
+        cursor: pointer;
+        .country__item-stat {
+            margin-left: 10px;
+        }
+        .country__item-flag {
+            height: 15px;
+            width: 15px;
+        }
+    }
 }
 
 #global {
