@@ -17,6 +17,8 @@ const globalConst = {
         }
     },
     dataAPI: {
+        currentFlag: undefined,
+        currentLatlng: undefined,
         lastUpdate: [],
         totalInfo: {},
         countryList: [],
@@ -53,8 +55,7 @@ export async function getFlag() {
 }
 
 getFlag().then((dataFlag) => {
-        for (const key in dataFlag) {
-            // console.log(dataFlag[key])
+    for (const key in dataFlag) {
             globalConst.dataAPI.countryFlag[key] = dataFlag[key];
         }
     })

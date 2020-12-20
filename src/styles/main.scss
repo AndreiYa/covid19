@@ -14,8 +14,8 @@ header,
 footer,
 nav,
 div {
-    padding: 5px;
-    background: gold;
+    // padding: 5px;
+    // background: gold;
 }
 
 #pageHeader {
@@ -143,4 +143,13 @@ ul {
 li {
     list-style: none;
     border: 1px solid #000;
+}
+
+#map {
+    background: white;
+}
+
+#mapid {
+    width: 100%;
+    height: 100%;
 }
