@@ -184,7 +184,7 @@ const renderLocalTable = () => {
     if (tableMode.last) {
         if (tableMode.unit) {
             casesNum.textContent = `${Math.round(globalConst.dataAPI.totalInfo.NewConfirmed/100000)} per 100K`;
-            deathsNum.textContent = `${Math.round(globalConst.dataAPI.totalInfo.NewDeaths/100000)} per 100K`;
+            deathsNum.textContent = `${Math.round(globalConst.dataAPI.totalInfo.NewDeaths/1000)/100} per 100K`;
             recoveredNum.textContent = `${Math.round(globalConst.dataAPI.totalInfo.NewRecovered/100000)} per 100K`;
         } else {
             casesNum.textContent = globalConst.dataAPI.totalInfo.NewConfirmed;
