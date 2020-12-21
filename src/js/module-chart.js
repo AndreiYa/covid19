@@ -12,8 +12,22 @@ moduleTemplates.chart.appendChild(schedulePlace);
 /* MODULE TEMPLATE END */
 
 const renderChart = () => {
-    console.log('chart: ', globalConst.currentRegion.name);
-    schedulePlace.innerHTML = `${globalConst.currentRegion.name}`;
+    let url;
+    const D = new Date;
+    D.setDate(D.getDate() - 29);
+    if (globalConst.currentRegion.name) {
+        url = `https://api.covid19api.com/country/${globalConst.currentRegion.name}?from=${D.toISOString()}&to=${globalConst.dataAPI.lastUpdate}`;
+    } else {
+        url = `https://api.covid19api.com/world?from=${D.toISOString()}&to=${globalConst.dataAPI.lastUpdate}`;
+    }
+    getChartData(url)
+        .then((data) => {
+            console.log(`${globalConst.currentRegion.name ? globalConst.currentRegion.name : 'All countries'}: `, data);
+
+            // makeTable(data);
+        }).catch((err) => {
+            console.log(err);
+        });;
 }
 
 export default renderChart;
