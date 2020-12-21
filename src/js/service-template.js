@@ -29,8 +29,6 @@ const footer = document.createElement('footer');
 footer.id = 'pageFooter';
 body.appendChild(footer);
 
-//Внутренние блоки каркасных элементов
-
 export default {
     header: header,
     mainTable: casesBlock,
