@@ -28,29 +28,31 @@ export async function getChartData(url) {
 };
 
 function makeTable(dataInfo) {
-    const arrDate = []
+    const arrDate = [];
+    const arrPeople = [];
+    const days = ['mon', 'tue']
     for (let i = 0; i < dataInfo.length; i++) {
         const element = dataInfo[i].Date;
-        arrDate.push(element);
-        // return arrDate;
+        // console.log(element.substr(5,5));
+        // const newEl = element.substr(5,5)
+        const newEl = new Date(element)
+        arrDate.push(newEl.toLocaleDateString());
+
     }
-    console.log(arrDate);
+    for (let i = 0; i < dataInfo.length; i++) {
+        const element = dataInfo[i].Active;
+        arrPeople.push(element)
+    }
 
     let chart = new Chart(ctx, {
-        
-        // The type of chart we want to create
         type: 'line',
-
-        // The data for our dataset
         data: {
-            labels: ['zydfhm', 'sasdasd', 'wdasd'], 
+            labels: arrDate, 
             datasets: [{
                 label: 'Cases', 
                 backgroundColor: 'rgb(255, 99, 132)',
                 borderColor: 'rgb(255, 99, 132)',
-
-                data: [0, 200000, 15000, 80000]
-
+                data: arrPeople
             }]
         },
 
@@ -61,10 +63,12 @@ function makeTable(dataInfo) {
 
 const renderChart = () => {
     let url;
+    const D = new Date(globalConst.dataAPI.lastUpdate);
+    D.setDate(D.getDate() - 29)
     if (globalConst.currentRegion.name) {
-        url = `https://api.covid19api.com/country/${globalConst.currentRegion.name}?from=2020-10-10T00:00:00Z&to=2020-10-11T00:00:00Z`;
+        url = `https://api.covid19api.com/country/${globalConst.currentRegion.name}?from=${D.toISOString()}&to=${globalConst.dataAPI.lastUpdate}`;
     } else {
-        url = `https://api.covid19api.com/world?from=2020-10-10T00:00:00Z&to=2020-11-11T00:00:00Z`;
+        url = `https://api.covid19api.com/world?from=${D.toISOString()}&to=${globalConst.dataAPI.lastUpdate}`;
     }
     getChartData(url)
         .then((dataInfo) => {
