@@ -39,7 +39,7 @@ getData().then((data) => {
         globalConst.dataAPI.countryList[key] = data.Countries[key];
     }
     globalConst.dataAPI.lastUpdate = data.Date;
-    globalConst.currentRegion._name = 'Belarus';
+    globalConst.currentRegion._name = undefined;
     //need add sort func
     mainTable.makeCountryList();
 });
