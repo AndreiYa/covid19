@@ -10,6 +10,11 @@ casesBlock.id = 'cases';
 body.appendChild(casesBlock);
 const mapBlock = document.createElement('div');
 mapBlock.id = 'map';
+
+const map = document.createElement("div");
+map.id = "mapid";
+mapBlock.append(map);
+
 body.appendChild(mapBlock);
 const global = document.createElement('div');
 global.id = 'global';
@@ -23,8 +28,6 @@ body.appendChild(schedule);
 const footer = document.createElement('footer');
 footer.id = 'pageFooter';
 body.appendChild(footer);
-
-//Внутренние блоки каркасных элементов
 
 export default {
     header: header,

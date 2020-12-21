@@ -3,6 +3,7 @@ import globalConst from "./globalData";
 
 import moduleTemplates from './service-template';
 
+
 const tableMode = {
     modes: ['Cases', 'Deaths', 'Recovered'],
     unit: false,
