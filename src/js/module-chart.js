@@ -11,6 +11,15 @@ schedulePlace.innerHTML = `API schedule`;
 moduleTemplates.chart.appendChild(schedulePlace);
 /* MODULE TEMPLATE END */
 
+const myCart = document.createElement('canvas');
+myCart.id = 'myChart';
+myCart.style.width = 100 + '%';
+myCart.style.height = 150 + 'px';
+
+schedulePlace.append(myCart)
+let ctx = document.getElementById('myChart').getContext('2d');
+
+
 export async function getChartData(url) {
     const apiCountryUrl = url;
     const res = await fetch(apiCountryUrl);
@@ -18,26 +27,28 @@ export async function getChartData(url) {
     return data;
 };
 
-function makeTable(data) {
-    var chart = new Chart(ctx, {
+function makeTable(dataInfo) {
+    const arrDate = []
+    for (let i = 0; i < dataInfo.length; i++) {
+        const element = dataInfo[i].Date;
+        arrDate.push(element);
+        // return arrDate;
+    }
+    console.log(arrDate);
+
+    let chart = new Chart(ctx, {
+        
         // The type of chart we want to create
         type: 'line',
 
         // The data for our dataset
         data: {
-            labels: ['September', 'October', 'November', 'December'], //сюда у нас должно пойти Date
+            labels: ['zydfhm', 'sasdasd', 'wdasd'], 
             datasets: [{
-                label: 'Cases', //Сюда идет название графика, то, по чему будут показатели
+                label: 'Cases', 
                 backgroundColor: 'rgb(255, 99, 132)',
                 borderColor: 'rgb(255, 99, 132)',
-                //в зависимости от страны сюда будет лететь Месяц(ось Х), количество человек(ось У)
-                //     data: [{
-                //       x: new Date(),
-                //       y: 1
-                //   }, {
-                //       t: new Date(),
-                //       y: 2000000
-                //   }]
+
                 data: [0, 200000, 15000, 80000]
 
             }]
@@ -56,10 +67,9 @@ const renderChart = () => {
         url = `https://api.covid19api.com/world?from=2020-10-10T00:00:00Z&to=2020-11-11T00:00:00Z`;
     }
     getChartData(url)
-        .then((data) => {
-            console.log(`${globalConst.currentRegion.name ? globalConst.currentRegion.name : 'All countries'}: `, data);
-
-            makeTable(data);
+        .then((dataInfo) => {
+            console.log(`${globalConst.currentRegion.name ? globalConst.currentRegion.name : 'All countries'}: `, dataInfo);
+            makeTable(dataInfo);
         }).catch((err) => {
             console.log(err);
         });;
