@@ -30,7 +30,6 @@ export async function getChartData(url) {
 function makeTable(dataInfo) {
     const arrDate = [];
     const arrPeople = [];
-    const days = ['mon', 'tue']
     for (let i = 0; i < dataInfo.length; i++) {
         const element = dataInfo[i].Date;
         // console.log(element.substr(5,5));
@@ -40,7 +39,7 @@ function makeTable(dataInfo) {
 
     }
     for (let i = 0; i < dataInfo.length; i++) {
-        const element = dataInfo[i].Active;
+        const element = dataInfo[i].Deaths;
         arrPeople.push(element)
     }
 
