@@ -17,8 +17,7 @@ const globalConst = {
         }
     },
     dataAPI: {
-        currentFlag: undefined,
-        currentLatlng: undefined,
+        allData:[],
         lastUpdate: [],
         totalInfo: {},
         countryList: [],

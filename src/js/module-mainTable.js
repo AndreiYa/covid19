@@ -2,7 +2,6 @@
 import globalConst from './globalData';
 import moduleTemplates from './service-template';
 
-
 /* MODULE TEMPLATE START */
 const casesInfo = document.createElement('div');
 casesInfo.className = 'global-cases';
@@ -49,11 +48,10 @@ export function makeCountryList() {
             }
         });
     });
+
     const country = document.querySelectorAll(".country__item-wrapper");
     country.forEach((item) => {
         item.addEventListener("click", (e) => {
-            //const target = e.target.parentNode.getAttribute("country");
-            //showInfo(target);
             globalConst.currentRegion._name = e.currentTarget.getAttribute('country');
         });
     });

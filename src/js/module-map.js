@@ -10,7 +10,6 @@ import * as json from "./countries.json";
 export const mymap = L.map("mapid").setView([15, 0], 1);
 
 L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-  // attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
   maxZoom: 18,
   id: "mapbox/dark-v10",
   tileSize: 512,
@@ -31,15 +30,16 @@ const renderMap = () => {
             radius: globalConst.dataAPI.countryList[k].TotalConfirmed / 10,
           }).addTo(mymap);
         }
-      }
-    }
-    if (json[key].name === globalConst.currentRegion.name) {
+        if (json[key].name === globalConst.currentRegion.name && globalConst.currentRegion.name === globalConst.dataAPI.countryList[k].Country) {
       mymap.setView(json[key].latlng, 5);
       const popup = L.popup()
         .setLatLng(json[key].latlng)
-        .setContent(`${globalConst.currentRegion.name}` + "<br/>" + "<p>This is a nice popup.</p>")
+        .setContent(`${globalConst.currentRegion.name}` + "<br/>" + "<p>"+`${globalConst.dataAPI.countryList[k].NewConfirmed}`+"</p>")
         .openOn(mymap);
     }
+      }
+    }
+    
   }
 
   async function getCountry(lat, lng) {
@@ -56,8 +56,6 @@ const renderMap = () => {
 }
 
 mymap.on('click', onMapClick);
-    
-  // moduleTemplates.map.innerHTML = ` ${globalConst.currentRegion.name} `;
 };
 
 export default renderMap;
