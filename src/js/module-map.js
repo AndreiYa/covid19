@@ -19,17 +19,28 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 }).addTo(mymap);
 /* MODULE TEMPLATE END */
 
+let switcher = false;
+
 const renderMap = () => {
   for (const key in json) {
     if (json[key].latlng !== undefined) {
       for (const k in globalConst.dataAPI.countryList) {
         if (json[key].name === globalConst.dataAPI.countryList[k].Country) {
-          const circle = L.circle(json[key].latlng, {
-            color: "red",
-            fillColor: "#f03",
-            fillOpacity: 0.5,
-            radius: globalConst.dataAPI.countryList[k].TotalConfirmed / 10,
-          }).addTo(mymap);
+          if (switcher) {
+            const circle = L.circle(json[key].latlng, {
+              color: "red",
+              fillColor: "#f03",
+              fillOpacity: 0.5,
+              radius: globalConst.dataAPI.countryList[k].TotalConfirmed / 10,
+            }).addTo(mymap);
+          } else {
+            const circle = L.circle(json[key].latlng, {
+              color: "white",
+              fillColor: "white",
+              fillOpacity: 0.5,
+              radius: globalConst.dataAPI.countryList[k].TotalRecovered / 10,
+            }).addTo(mymap);
+          }
         }
         if (json[key].name === globalConst.currentRegion.name
           && globalConst.currentRegion.name === globalConst.dataAPI.countryList[k].Country) {
@@ -89,6 +100,14 @@ mapLegend.addEventListener("click", (e) => {
     legendConfirmed.classList.toggle("none");
     legendRecovered.classList.toggle("none");
     mapLegend.classList.toggle("none");
+  }
+  if (e.target === legendConfirmed) {
+    switcher = true;
+    renderMap();
+  }
+  if (e.target === legendRecovered) {
+    switcher = false;
+    renderMap();
   }
 });
 
