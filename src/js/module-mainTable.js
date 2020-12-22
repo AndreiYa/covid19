@@ -55,7 +55,6 @@ export function makeCountryList() {
 }
 
 export function renderMainTable() {
-    console.log('mainTable: ', globalConst.dataAPI);
     casesInfo.innerHTML = `
 <h4 class="title-text">Global Cases</h4>
 <span class="global-cases__count">${globalConst.dataAPI.totalInfo.TotalConfirmed}</span>
