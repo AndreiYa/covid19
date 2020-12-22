@@ -7,8 +7,14 @@ import moduleTemplates from './service-template';
 /* MODULE TEMPLATE START */
 const schedulePlace = document.createElement('div');
 schedulePlace.className = 'schedule-place';
-schedulePlace.innerHTML = `API schedule`;
 moduleTemplates.chart.appendChild(schedulePlace);
+const resizer = document.createElement("div");
+resizer.className = "box-resizer";
+resizer.innerHTML = "<span class='material-icons'> fullscreen_exit </span>";
+moduleTemplates.chart.append(resizer);
+resizer.addEventListener("click", () => {
+    moduleTemplates.chart.classList.toggle("box-full");
+});
 /* MODULE TEMPLATE END */
 
 const myCart = document.createElement('canvas');

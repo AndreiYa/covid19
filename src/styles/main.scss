@@ -24,6 +24,36 @@ header {
     justify-content: space-between;
 }
 
+.box-resizer {
+    width: 1.4rem;
+    height: 1.4rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 999;
+    background-color: #333;
+    border: 1px solid rgb(85, 85, 85);
+    span {
+        font-size: 1.1rem;
+    }
+}
+
+.box-full {
+    position: absolute !important;
+    width: calc(100% - 20px) !important;
+    height: calc(100% - 20px) !important;
+    left: 10px !important;
+    top: 10px !important;
+    z-index: 2000;
+    .cases-by__list {
+        max-height: none;
+    }
+}
+
 .logo__wrapper {
     display: flex;
     align-items: center;
@@ -56,7 +86,7 @@ header {
     }
 }
 
-.map__legend{
+.map__legend {
     position: absolute;
     width: 200px;
     height: 80px;
@@ -92,7 +122,6 @@ header {
 .legend__confirmed.none,
 .legend__recovered.none {
     display: none;
-
 }
 
 h4 {
@@ -131,7 +160,9 @@ h4 {
 }
 
 #cases {
+    position: relative;
     grid-area: cases;
+    background: rgb(17, 17, 17);
 }
 
 .cases-by__list {
@@ -157,6 +188,7 @@ h4 {
 }
 
 #global {
+    position: relative;
     grid-area: global;
     overflow: hidden;
     background-color: #333;
@@ -174,6 +206,7 @@ h4 {
 }
 
 #schedule {
+    position: relative;
     grid-area: schedule;
     background-color: #333;
     border: 1px solid rgb(85, 85, 85);

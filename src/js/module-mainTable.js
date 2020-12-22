@@ -17,6 +17,13 @@ moduleTemplates.mainTable.appendChild(casesBy);
 const casesByList = document.createElement('ul');
 casesByList.className = 'cases-by__list';
 casesBy.appendChild(casesByList);
+const resizer = document.createElement("div");
+resizer.className = "box-resizer";
+resizer.innerHTML = "<span class='material-icons'> fullscreen_exit </span>";
+moduleTemplates.mainTable.append(resizer);
+resizer.addEventListener("click", () => {
+    moduleTemplates.mainTable.classList.toggle("box-full");
+});
 
 /* MODULE TEMPLATE END */
 

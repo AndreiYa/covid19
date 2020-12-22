@@ -81,6 +81,13 @@ changers.append(cahngerRight);
 cahngerRight.addEventListener('click', () => {
     changeMode(1);
 });
+const resizer = document.createElement("div");
+resizer.className = "box-resizer";
+resizer.innerHTML = "<span class='material-icons'> fullscreen_exit </span>";
+moduleTemplates.localTable.append(resizer);
+resizer.addEventListener("click", () => {
+    moduleTemplates.localTable.classList.toggle("box-full");
+});
 moduleTemplates.localTable.appendChild(changers);
 const globalInfoInner = document.createElement('div');
 globalInfoInner.className = 'global-info-inner';
