@@ -151,7 +151,7 @@ function selectLast(e) {
     renderLocalTable();
 }
 
-function countriesInfo(country, target, mode) {
+function countriesInfo(country, target, mode, color) {
     target.textContent = '';
     const list = document.createElement('ul');
     if (country) {
@@ -161,7 +161,11 @@ function countriesInfo(country, target, mode) {
                 const dataName = `${tableMode.last ? 'New' : 'Total'}${mode}`;
                 const item = document.createElement('li');
                 item.className = 'country-details-li country-details-last';
-                item.textContent = `${y[i].Country} - ${tableMode.unit ? y[i][dataName]/100000 : y[i][dataName]}`;
+                item.textContent = `${y[i].Country} `;
+                const itemNum = document.createElement('span');
+                itemNum.textContent = ` ${tableMode.unit ? y[i][dataName]/100000 : y[i][dataName]}`;
+                itemNum.style.color = color;
+                item.append(itemNum);
                 list.append(item);
                 break;
             }
@@ -172,7 +176,11 @@ function countriesInfo(country, target, mode) {
             const item = document.createElement('li');
             item.className = 'country-details-li';
             if (index === globalConst.dataAPI.countryList.length - 1) item.classList.add('country-details-last');
-            item.textContent = `${el.Country} - ${tableMode.unit ? el[dataName]/100000 : el[dataName]}`;
+            item.textContent = `${el.Country} `;
+            const itemNum = document.createElement('span');
+            itemNum.textContent = ` ${ tableMode.unit ? el[dataName] / 100000 : el[dataName] }`;
+            itemNum.style.color = color;
+            item.append(itemNum);
             list.append(item);
         });
     }
@@ -203,9 +211,9 @@ const renderLocalTable = () => {
             recoveredNum.textContent = globalConst.dataAPI.totalInfo.TotalRecovered;
         }
     }
-    countriesInfo(globalConst.currentRegion.name, casesContent, 'Confirmed');
-    countriesInfo(globalConst.currentRegion.name, deathsContent, 'Deaths');
-    countriesInfo(globalConst.currentRegion.name, recoveredContent, 'Recovered');
+    countriesInfo(globalConst.currentRegion.name, casesContent, 'Confirmed', 'orange');
+    countriesInfo(globalConst.currentRegion.name, deathsContent, 'Deaths', 'red');
+    countriesInfo(globalConst.currentRegion.name, recoveredContent, 'Recovered', '#3ADF00');
 }
 
 export default renderLocalTable;

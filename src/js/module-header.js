@@ -3,7 +3,6 @@ import moduleTemplates from './service-template';
 import globalConst from "./globalData";
 
 /* MODULE TEMPLATE START */
-// moduleTemplates.header.innerHTML = `<span class="covid-logo material-icons"> coronavirus </span> COVID-19 Dashboard by BEST JS DEV TEAM`
 
 const headerLogoWrapper = document.createElement("div");
 headerLogoWrapper.className = "logo__wrapper";
