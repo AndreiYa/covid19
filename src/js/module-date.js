@@ -5,6 +5,7 @@ import moduleTemplates from './service-template';
 
 
 /* MODULE TEMPLATE START */
+moduleTemplates.date.textContent = 'Last Updated at';
 const dateTimeBlock = document.createElement('time');
 dateTimeBlock.setAttribute('datetime', '<дата и время>');
 dateTimeBlock.innerHTML = `Date`

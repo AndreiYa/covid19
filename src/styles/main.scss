@@ -1,15 +1,22 @@
 @import "utils/_normalize";
+html {
+    height: 100%;
+    width: 100%;
+}
+
 body {
     display: grid;
     grid-template-areas: "header header header" "cases map global" "date schedule schedule" "footer footer footer";
-    grid-template-rows: 80px 1fr .3fr 70px;
+    grid-template-rows: 2fr 7fr 3fr 1fr;
     grid-template-columns: 20% 1fr 30%;
     grid-row-gap: 10px;
     grid-column-gap: 10px;
-    height: 100vh;
+    height: calc(100% - 20px);
     margin: 0;
-//     background: #fafafa;
-//     padding: 0 10px;
+    background: rgb(17, 17, 17);
+    color: rgb(214, 214, 214);
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 header,
@@ -18,23 +25,39 @@ nav,
 div {
     // padding: 5px;
     // background: gold;
-//     background: gold;
+    //     background: gold;
 }
 
 h4 {
     font-size: 1.1rem;
 }
 
+.covid-logo {
+    font-size: 2.5rem;
+    margin: 0 1rem;
+    color: red;
+}
+
 #pageHeader {
     grid-area: header;
+    background-color: #333;
+    border: 1px solid rgb(85, 85, 85);
+    padding: 10px;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
 }
 
 #pageFooter {
     grid-area: footer;
+    background-color: #333;
+    border: 1px solid rgb(85, 85, 85);
 }
 
 #map {
     grid-area: map;
+    background-color: #333;
+    border: 1px solid rgb(85, 85, 85);
 }
 
 #cases {
@@ -45,39 +68,52 @@ h4 {
     max-height: 300px;
     overflow-y: scroll;
     .country__item-wrapper {
+        border: none;
+        border-bottom: 1px solid black;
+        padding: 5px 0;
         display: flex;
         margin: 5px 0;
         cursor: pointer;
         .country__item-stat {
             margin-left: 10px;
+            color: red;
         }
         .country__item-flag {
             height: 15px;
             width: 15px;
+            margin-right: 7px;
         }
     }
 }
 
 #global {
     grid-area: global;
-    background-color: transparent;
     overflow: hidden;
-    border: solid 1px #e0e0e0;
+    background-color: #333;
+    border: 1px solid rgb(85, 85, 85);
 }
 
 #date {
     grid-area: date;
+    background-color: #333;
+    border: 1px solid rgb(85, 85, 85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 #schedule {
     grid-area: schedule;
+    background-color: #333;
+    border: 1px solid rgb(85, 85, 85);
 }
 
 #wt-sky-root {
     display: none;
 }
 
-@media all and (max-width: 575px) {
+@media all and (max-width: 768px) {
     body {
         grid-template-areas: "header header header" "map map map" "cases global global" "date date date" "schedule schedule schedule" "footer footer footer";
         grid-template-rows: 80px 1fr 1fr 80px 1fr 70px;
@@ -87,8 +123,8 @@ h4 {
     footer,
     nav,
     div {
-        padding: 0.2em;
-        background: gold;
+        //padding: 0.2em;
+        //background: gold;
     }
     .global-info-select {
         div {
@@ -106,6 +142,7 @@ h4 {
     }
     #map {
         grid-area: map;
+        min-height: 300px;
     }
     #cases {
         grid-area: cases;
@@ -118,6 +155,7 @@ h4 {
     }
     #schedule {
         grid-area: schedule;
+        min-height: 180px;
     }
     #wt-sky-root {
         display: none;
@@ -126,7 +164,7 @@ h4 {
 
 .global-info-select {
     height: 34px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid rgb(85, 85, 85);
     background: transparent;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -157,7 +195,7 @@ h4 {
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: #e0e0e0;
+        background-color: rgb(32, 32, 32);
         -webkit-transition: .4s;
         transition: .4s;
     }
@@ -168,15 +206,15 @@ h4 {
         width: 26px;
         left: 4px;
         bottom: 4px;
-        background-color: white;
+        background-color: rgb(58, 58, 58);
         -webkit-transition: .4s;
         transition: .4s;
     }
     input:checked+.slider {
-        background-color: gold;
+        background-color: rgb(134, 134, 134);
     }
     input:focus+.slider {
-        box-shadow: 0 0 1px gold;
+        box-shadow: 0 0 1px rgb(32, 32, 32);
     }
     input:checked+.slider:before {
         -webkit-transform: translateX(26px);
@@ -202,12 +240,12 @@ h4 {
         .global-info-box {
             .country-details-li {
                 border: none;
-                border-bottom: 1px solid #e0e0e0;
+                border-bottom: 1px solid black;
                 padding: 4px 0;
                 cursor: default;
             }
             .country-details-li:hover {
-                background-color: #e0e0e0;
+                background-color: rgb(14, 14, 14);
             }
             .country-details-last {
                 border: none !important;
@@ -231,7 +269,7 @@ h4 {
 
 .global-info-changer {
     height: 2rem;
-    border-top: 1px solid #e0e0e0;
+    border-top: 1px solid rgb(85, 85, 85);
     background: transparent;
     display: flex;
     align-items: center;
@@ -257,11 +295,32 @@ h4 {
 
 .global-cases {
     margin-bottom: 0.8rem;
+    background-color: #333;
+    border: 1px solid rgb(85, 85, 85);
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    .global-cases__count {
+        font-size: 1.5rem;
+        color: red;
+    }
 }
 
-.global-cases,
 .cases-by {
-    border: 1px solid #000;
+    background-color: #333;
+    border: 1px solid rgb(85, 85, 85);
+    padding: 5px;
+    .title-text {
+        word-wrap: break-word;
+        font-size: 0.9rem;
+        display: flex;
+        flex-direction: column;
+        span {
+            text-align: center;
+            margin-top: 5px
+        }
+    }
 }
 
 .country {
