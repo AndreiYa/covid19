@@ -46,11 +46,12 @@ function makeTable(dataInfo) {
     let chart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: arrDate, 
+
+            labels: arrDate,
             datasets: [{
-                label: 'Cases', 
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
+                label: 'Cases',
+                backgroundColor: 'red',
+                borderColor: 'red',
                 data: arrPeople
             }]
         },
