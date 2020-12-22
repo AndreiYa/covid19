@@ -11,6 +11,13 @@ schedulePlace.innerHTML = `API schedule`;
 moduleTemplates.chart.appendChild(schedulePlace);
 /* MODULE TEMPLATE END */
 
+export async function getChartData(url) {
+    const apiCountryUrl = url;
+    const res = await fetch(apiCountryUrl);
+    const data = await res.json();
+    return data;
+};
+
 const renderChart = () => {
     let url;
     const D = new Date;
