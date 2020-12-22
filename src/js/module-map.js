@@ -7,7 +7,7 @@ import * as json from "./countries.json";
 
 /* MODULE TEMPLATE START */
 // moduleTemplates.map.innerHTML = ` Сюда пойдет фрэйм карты `;
-export const mymap = L.map("mapid").setView([15, 0], 1);
+export const mymap = L.map("mapid").setView([15, 0], 2);
 
 L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
   maxZoom: 18,
@@ -30,32 +30,34 @@ const renderMap = () => {
             radius: globalConst.dataAPI.countryList[k].TotalConfirmed / 10,
           }).addTo(mymap);
         }
-        if (json[key].name === globalConst.currentRegion.name && globalConst.currentRegion.name === globalConst.dataAPI.countryList[k].Country) {
-      mymap.setView(json[key].latlng, 5);
-      const popup = L.popup()
-        .setLatLng(json[key].latlng)
-        .setContent(`${globalConst.currentRegion.name}` + "<br/>" + "<p>"+`${globalConst.dataAPI.countryList[k].NewConfirmed}`+"</p>")
-        .openOn(mymap);
-    }
+        if (json[key].name === globalConst.currentRegion.name &&
+          globalConst.currentRegion.name === globalConst.dataAPI.countryList[k].Country) {
+          mymap.setView(json[key].latlng, 5);
+          const popup = L.popup()
+            .setLatLng(json[key].latlng)
+            .setContent(`${globalConst.currentRegion.name}` + "<br/>" + "<p>New сonfirmed cases: " + ` ${globalConst.dataAPI.countryList[k].NewConfirmed}` + "</p>")
+            .openOn(mymap);
+        }
       }
     }
-    
   }
 
-  async function getCountry(lat, lng) {
+  
+};
+async function getCountry(lat, lng) {
     const apiCountryUrl = `https://api.opencagedata.com/geocode/v1/json?key=1b5423d072234774beccddea5b1967b8&q=${lat}+${lng}&pretty=1&language=en`;
     const res = await fetch(apiCountryUrl);
     const data = await res.json();
     return data;
-};
+  }
 
   function onMapClick(e) {
     getCountry(e.latlng.lat, e.latlng.lng).then((data) => {
       console.log(data.results[0].components.country);
-});
-}
+      globalConst.currentRegion._name = data.results[0].components.country;
+    });
+  }
 
-mymap.on('click', onMapClick);
-};
+  mymap.on("click", onMapClick);
 
 export default renderMap;
