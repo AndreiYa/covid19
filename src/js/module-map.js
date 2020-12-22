@@ -1,8 +1,9 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable guard-for-in */
 /* eslint-disable no-undef */
 /* eslint-disable no-restricted-syntax */
 import globalConst from "./globalData";
-import moduleTemplates from "./service-template";
+import { map } from "./service-template";
 import * as json from "./countries.json";
 
 /* MODULE TEMPLATE START */
@@ -30,8 +31,8 @@ const renderMap = () => {
             radius: globalConst.dataAPI.countryList[k].TotalConfirmed / 10,
           }).addTo(mymap);
         }
-        if (json[key].name === globalConst.currentRegion.name &&
-          globalConst.currentRegion.name === globalConst.dataAPI.countryList[k].Country) {
+        if (json[key].name === globalConst.currentRegion.name
+          && globalConst.currentRegion.name === globalConst.dataAPI.countryList[k].Country) {
           mymap.setView(json[key].latlng, 5);
           const popup = L.popup()
             .setLatLng(json[key].latlng)
@@ -41,23 +42,54 @@ const renderMap = () => {
       }
     }
   }
-
-  
 };
 async function getCountry(lat, lng) {
-    const apiCountryUrl = `https://api.opencagedata.com/geocode/v1/json?key=1b5423d072234774beccddea5b1967b8&q=${lat}+${lng}&pretty=1&language=en`;
-    const res = await fetch(apiCountryUrl);
-    const data = await res.json();
-    return data;
-  }
+  const apiCountryUrl = `https://api.opencagedata.com/geocode/v1/json?key=1b5423d072234774beccddea5b1967b8&q=${lat}+${lng}&pretty=1&language=en`;
+  const res = await fetch(apiCountryUrl);
+  const data = await res.json();
+  return data;
+}
 
-  function onMapClick(e) {
-    getCountry(e.latlng.lat, e.latlng.lng).then((data) => {
-      console.log(data.results[0].components.country);
-      globalConst.currentRegion._name = data.results[0].components.country;
-    });
-  }
+function onMapClick(e) {
+  getCountry(e.latlng.lat, e.latlng.lng).then((data) => {
+    globalConst.currentRegion._name = data.results[0].components.country;
+  });
+}
 
-  mymap.on("click", onMapClick);
+mymap.on("click", onMapClick);
+
+// legend popup
+
+const mapLegend = document.createElement("div");
+mapLegend.className = "map__legend";
+const legendNav = document.createElement("div");
+legendNav.className = "legend__nav";
+const legendTitle = document.createElement("div");
+legendTitle.className = "legend__title";
+const legendClose = document.createElement("div");
+legendClose.className = "legend__close";
+const legendConfirmed = document.createElement("div");
+legendConfirmed.className = "legend__confirmed";
+const legendRecovered = document.createElement("div");
+legendRecovered.className = "legend__recovered";
+
+legendTitle.textContent = "Map Legend";
+legendClose.textContent = "X";
+
+legendConfirmed.textContent = "Confirmed cases - red cicles";
+legendRecovered.textContent = "Recovered cases - white cicles";
+
+mapLegend.append(legendNav, legendConfirmed, legendRecovered);
+legendNav.append(legendTitle, legendClose);
+
+map.append(mapLegend);
+
+mapLegend.addEventListener("click", (e) => {
+  if (e.target === legendClose) {
+    legendConfirmed.classList.toggle("none");
+    legendRecovered.classList.toggle("none");
+    mapLegend.classList.toggle("none");
+  }
+});
 
 export default renderMap;

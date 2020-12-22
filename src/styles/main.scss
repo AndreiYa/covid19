@@ -28,6 +28,81 @@ div {
     //     background: gold;
 }
 
+header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo__wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.search__wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.search__input {
+    width: 150px;
+    height: 25px;
+    border-radius: 10px;
+    background-color: #202020;
+    margin-right: 10px;
+    color: lightgray;
+    font-size: 18px;
+    outline: 0;
+}
+
+.search__btn {
+    font-size: 16px;
+    border: 1px solid lightgray;
+    padding: 5px;
+    cursor: pointer;
+    &:hover {
+        border: 1px solid white;
+        color: white;
+    }
+}
+
+.map__legend{
+    position: absolute;
+    width: 200px;
+    height: 80px;
+    bottom: 0;
+    right: 0;
+    background-color: #555555;
+    z-index: 999;
+}
+
+.map__legend.none {
+    height: 35px;
+}
+
+.legend__nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+.legend__title,
+.legend__close,
+.legend__confirmed,
+.legend__recovered {
+    margin: 3px 5px;
+    color: lightgray;
+    cursor: pointer;
+}
+
+.legend__confirmed:hover,
+.legend__recovered:hover {
+    color: white;
+}
+
+.legend__confirmed.none,
+.legend__recovered.none {
+    display: none;
+}
+
 h4 {
     font-size: 1.1rem;
 }

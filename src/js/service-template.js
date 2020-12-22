@@ -3,15 +3,17 @@ const body = document.body;
 
 //Каркас
 const header = document.createElement('header');
+
 header.id = 'pageHeader';
 body.appendChild(header);
+
 const casesBlock = document.createElement('div');
 casesBlock.id = 'cases';
 body.appendChild(casesBlock);
 const mapBlock = document.createElement('div');
 mapBlock.id = 'map';
 
-const map = document.createElement("div");
+export const map = document.createElement("div");
 map.id = "mapid";
 mapBlock.append(map);
 
