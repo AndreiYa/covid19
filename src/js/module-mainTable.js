@@ -5,10 +5,7 @@ import moduleTemplates from './service-template';
 /* MODULE TEMPLATE START */
 const casesInfo = document.createElement('div');
 casesInfo.className = 'global-cases';
-casesInfo.innerHTML = `
-<h4 class="title-text">Global Cases</h4>
-<span class="global-cases__count">72 948 590</span>
-`
+
 moduleTemplates.mainTable.appendChild(casesInfo);
 
 const casesBy = document.createElement('div');
@@ -59,4 +56,8 @@ export function makeCountryList() {
 
 export function renderMainTable() {
     console.log('mainTable: ', globalConst.dataAPI);
+    casesInfo.innerHTML = `
+<h4 class="title-text">Global Cases</h4>
+<span class="global-cases__count">${globalConst.dataAPI.totalInfo.TotalConfirmed}</span>
+`
 }

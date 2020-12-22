@@ -6,8 +6,8 @@ html {
 
 body {
     display: grid;
-    grid-template-areas: "header header header" "cases map global" "date schedule schedule" "footer footer footer";
-    grid-template-rows: 2fr 7fr 3fr 1fr;
+    grid-template-areas: "header header header" "cases map global" "date schedule schedule" "footer schedule schedule";
+    grid-template-rows: 2fr 7fr 2fr 2fr;
     grid-template-columns: 20% 1fr 30%;
     grid-row-gap: 10px;
     grid-column-gap: 10px;
@@ -52,6 +52,9 @@ h4 {
     grid-area: footer;
     background-color: #333;
     border: 1px solid rgb(85, 85, 85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #map {
@@ -228,7 +231,7 @@ h4 {
         background-color: transparent;
     }
     height: calc(100% - 2rem - 34px);
-    overflow-y: scroll;
+    overflow-y: hidden;
     overflow-x: hidden;
     background: transparent;
     .global-info-inner {
@@ -243,6 +246,7 @@ h4 {
                 border-bottom: 1px solid black;
                 padding: 4px 0;
                 cursor: default;
+                padding-left: 5px;
             }
             .country-details-li:hover {
                 background-color: rgb(14, 14, 14);
