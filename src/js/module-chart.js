@@ -77,7 +77,7 @@ const renderChart = () => {
     }
     getChartData(url)
         .then((dataInfo) => {
-            console.log(`${globalConst.currentRegion.name ? globalConst.currentRegion.name : 'All countries'}: `, dataInfo);
+            console.log(dataInfo);
             makeTable(dataInfo);
         }).catch((err) => {
             console.log(err);

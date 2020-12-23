@@ -56,11 +56,14 @@ getData().then((data) => {
 
             globalConst.currentRegion._name = undefined;
             setTimeout(() => {
-                moduleTemplates.loading.style.display = "none";
+                if (globalConst.dataAPI.totalInfo.TotalConfirmed === 0) {
+                    moduleTemplates.loading.style.backgroundImage = 'none';
+                    moduleTemplates.loading.textContent = `Oops!\n API сломался... Попробуйте позже!`;
+                }
+                else moduleTemplates.loading.style.display = "none";
             }, 2000);
         })
         .catch(err => {
-            console.log('Oops!: ', err);
             moduleTemplates.loading.style.backgroundImage = 'none';
             moduleTemplates.loading.textContent = `Oops!\n ${err}`;
         });
@@ -68,7 +71,6 @@ getData().then((data) => {
     //mainTable.makeCountryList();
 })
 .catch(err => {
-    console.log('Oops!: ', err);
     moduleTemplates.loading.style.backgroundImage = 'none';
     moduleTemplates.loading.textContent = `Oops!\n ${err}`;
 });;
