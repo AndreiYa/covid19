@@ -66,14 +66,14 @@ getData().then((data) => {
         })
         .catch(err => {
             moduleTemplates.loading.style.backgroundImage = 'none';
-            moduleTemplates.loading.textContent = `Oops!\n ${err}`;
+            moduleTemplates.loading.textContent = `Oops!\n Проблемы с API. Попробуйте позже!`;
         });
     //need add sort func
     //mainTable.makeCountryList();
 })
 .catch(err => {
     moduleTemplates.loading.style.backgroundImage = 'none';
-    moduleTemplates.loading.textContent = `Oops!\n ${err}`;
+    moduleTemplates.loading.textContent = `Oops!\n Проблемы с API. Попробуйте позже!`;
 });;
 
 export async function getFlag() {

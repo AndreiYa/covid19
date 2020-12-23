@@ -63,7 +63,9 @@ const renderMap = () => {
             .setContent(`${globalConst.currentRegion.name}` + "<br/>" + "<p>New сonfirmed cases: " + ` ${globalConst.dataAPI.countryList[k].NewConfirmed}` + "</p>")
             .openOn(mymap);
         }
+      }
     }
+  }
 };
 async function getCountry(lat, lng) {
     const apiCountryUrl = `https://api.opencagedata.com/geocode/v1/json?key=1b5423d072234774beccddea5b1967b8&q=${lat}+${lng}&pretty=1&language=en`;
@@ -134,4 +136,3 @@ mapLegend.addEventListener("click", (e) => {
 });
 
 export default renderMap;
-    

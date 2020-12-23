@@ -59,7 +59,7 @@ header {
 }
 
 .box-full {
-    position: absolute !important;
+    position: fixed !important;
     width: calc(100% - 20px) !important;
     height: calc(100% - 20px) !important;
     left: 10px !important;
@@ -231,10 +231,11 @@ h4 {
     position: relative;
     grid-area: cases;
     background: rgb(17, 17, 17);
+    overflow: hidden;
 }
 
 .cases-by__list {
-    max-height: 300px;
+    max-height: 230px;
     overflow-y: scroll;
     .country__item-wrapper {
         border: none;
@@ -327,6 +328,7 @@ h4 {
     }
     #cases {
         grid-area: cases;
+        min-height: 400px;
     }
     #global {
         grid-area: global;
@@ -336,7 +338,7 @@ h4 {
     }
     #schedule {
         grid-area: schedule;
-        min-height: 500px;
+        min-height: 830px;
     }
     #wt-sky-root {
         display: none;
@@ -489,6 +491,7 @@ h4 {
     border: 1px solid rgb(85, 85, 85);
     padding: 5px;
     display: flex;
+    height: 3rem;
     align-items: center;
     flex-direction: column;
     .global-cases__count {
@@ -501,6 +504,8 @@ h4 {
     background-color: #333;
     border: 1px solid rgb(85, 85, 85);
     padding: 5px;
+    height: calc(100% - 3.8rem);
+    overflow-y: scroll;
     .title-text {
         word-wrap: break-word;
         font-size: 0.9rem;

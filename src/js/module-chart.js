@@ -66,9 +66,6 @@ let ctxDaily = document.getElementById('myChartDaily').getContext('2d');
 let ctxCumulative = document.getElementById('myChartCumulative').getContext('2d');
 let ctxLog = document.getElementById('myChartLog').getContext('2d');
 
-schedulePlace.append(myCart);
-const ctx = document.getElementById("myChart").getContext("2d");
-
 export async function getChartData(url) {
   const apiCountryUrl = url;
   const res = await fetch(apiCountryUrl);
@@ -84,10 +81,6 @@ function makeTableDaily(data) {
         arrDate.push(el.date);
         arrParam.push(el[`New${globalConst.currentChartType}`]);
     });
-
-    console.log('dates: ', arrDate);
-    console.log('params: ', arrParam);
-
 
     charts.daily = new Chart(ctxDaily, {
         type: 'line',
@@ -114,10 +107,6 @@ function makeTableCumulative(data) {
         arrParam.push(el[`Total${globalConst.currentChartType}`]);
     });
 
-    console.log('dates: ', arrDate);
-    console.log('params: ', arrParam);
-
-
     charts.cumulative = new Chart(ctxCumulative, {
         type: 'line',
         data: {
@@ -143,17 +132,13 @@ function makeTableLog(data) {
         arrParam.push(Math.log(el[`New${globalConst.currentChartType}`]));
     });
 
-    console.log('dates: ', arrDate);
-    console.log('params: ', arrParam);
-
-
     charts.log = new Chart(ctxLog, {
         type: 'line',
         data: {
 
             labels: arrDate,
             datasets: [{
-                label: 'Cumulative',
+                label: 'Log',
                 backgroundColor: globalConst.currentInfoType.name.color,
                 borderColor: globalConst.currentInfoType.name.color,
                 data: arrParam
@@ -216,7 +201,7 @@ const renderChart = () => {
             makeTableCumulative(newdata);
             makeTableLog(newdata);
         }).catch((err) => {
-            console.log(err);
+            throw new Error(err);
         });;
 }
 
