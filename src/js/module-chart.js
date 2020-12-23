@@ -5,6 +5,7 @@ import moduleTemplates from './service-template';
 
 
 /* MODULE TEMPLATE START */
+
 const schedulePlace = document.createElement('div');
 schedulePlace.className = 'schedule-place';
 moduleTemplates.chart.appendChild(schedulePlace);
@@ -15,15 +16,45 @@ moduleTemplates.chart.append(resizer);
 resizer.addEventListener("click", () => {
     moduleTemplates.chart.classList.toggle("box-full");
 });
+const scheduleDeath = document.createElement('div');
+scheduleDeath.className = 'schedule-death';
+scheduleDeath.style.display = 'inline-block';
+
+const scheduleConfirmed = document.createElement('div');
+scheduleConfirmed.className = 'schedule-confirmed';
+scheduleConfirmed.style.display = 'inline-block';
+
+const scheduleRecovered = document.createElement('div');
+scheduleRecovered.className = 'schedule-recovered';
+scheduleRecovered.style.display = 'inline-block';
+
+moduleTemplates.chart.appendChild(scheduleDeath);
+moduleTemplates.chart.appendChild(scheduleConfirmed);
+moduleTemplates.chart.appendChild(scheduleRecovered);
 /* MODULE TEMPLATE END */
 
-const myCart = document.createElement('canvas');
-myCart.id = 'myChart';
-myCart.style.width = 100 + '%';
-myCart.style.height = 150 + 'px';
+const myChartDeath = document.createElement('canvas');
+const myChartConfirmed = document.createElement('canvas');
+const myChartRecovered = document.createElement('canvas');
+myChartDeath.id = 'myChartDeath';
+myChartConfirmed.id = 'myChartConfirmed';
+myChartRecovered.id = 'myChartRecovered';
+myChartDeath.style.width = 100 + '%';
+myChartConfirmed.style.width = 100 + '%';
+myChartRecovered.style.width = 100 + '%';
+myChartDeath.style.height = 150 + 'px';
+myChartConfirmed.style.height = 150 + 'px';
+myChartRecovered.style.height = 150 + 'px';
+myChartDeath.style.display = 'inline-block';
+myChartConfirmed.style.display = 'inline-block';
+myChartRecovered.style.display = 'inline-block';
 
-schedulePlace.append(myCart)
-let ctx = document.getElementById('myChart').getContext('2d');
+scheduleDeath.append(myChartDeath)
+scheduleConfirmed.append(myChartConfirmed)
+scheduleRecovered.append(myChartRecovered)
+let ctxDeath = document.getElementById('myChartDeath').getContext('2d');
+let ctxConfirmed = document.getElementById('myChartConfirmed').getContext('2d');
+let ctxRecovered = document.getElementById('myChartRecovered').getContext('2d');
 
 
 export async function getChartData(url) {
@@ -33,35 +64,96 @@ export async function getChartData(url) {
     return data;
 };
 
-function makeTable(dataInfo) {
+
+function makeTableDeath(dataInfo) {
     const arrDate = [];
-    const arrPeople = [];
+    const arrPeopleDeaths = [];
     for (let i = 0; i < dataInfo.length; i++) {
-        const element = dataInfo[i].Date;
-        // console.log(element.substr(5,5));
-        // const newEl = element.substr(5,5)
-        const newEl = new Date(element)
+        //Date
+        const elDate = dataInfo[i].Date;
+        const newEl = new Date(elDate)
         arrDate.push(newEl.toLocaleDateString());
 
-    }
-    for (let i = 0; i < dataInfo.length; i++) {
-        const element = dataInfo[i].Deaths;
-        arrPeople.push(element)
+        //Death
+        const elDeath = dataInfo[i].Deaths;
+        arrPeopleDeaths.push(elDeath);
     }
 
-    let chart = new Chart(ctx, {
+
+    let chart = new Chart(ctxDeath, {
         type: 'line',
         data: {
+
             labels: arrDate,
             datasets: [{
-                label: 'Cases',
+                label: 'Death',
                 backgroundColor: 'red',
                 borderColor: 'red',
-                data: arrPeople
+                data: arrPeopleDeaths
             }]
         },
+        options: {}
+    });
+}
 
-        // Configuration options go here
+function makeTableConfirmed(dataInfo) {
+    const arrDate = [];
+    const arrPeopleConfirmed = [];
+    for (let i = 0; i < dataInfo.length; i++) {
+        //Date
+        const elDate = dataInfo[i].Date;
+        const newEl = new Date(elDate)
+        arrDate.push(newEl.toLocaleDateString());
+
+        // //Confirmed
+        const elConfirmed = dataInfo[i].Confirmed;
+        arrPeopleConfirmed.push(elConfirmed);
+    }
+
+
+    let chart = new Chart(ctxConfirmed, {
+        type: 'line',
+        data: {
+
+            labels: arrDate,
+            datasets: [{
+                label: 'Confirmed',
+                backgroundColor: 'yellow',
+                borderColor: 'yellow',
+                data: arrPeopleConfirmed
+            }]
+        },
+        options: {}
+    });
+}
+
+function makeTableRecovered(dataInfo) {
+    const arrDate = [];
+    const arrPeopleRecovered = [];
+    for (let i = 0; i < dataInfo.length; i++) {
+        //Date
+        const elDate = dataInfo[i].Date;
+        const newEl = new Date(elDate)
+        arrDate.push(newEl.toLocaleDateString());
+
+        // //Recovered
+        const elRecovered = dataInfo[i].Recovered;
+        arrPeopleRecovered.push(elRecovered);
+    }
+
+
+    let chart = new Chart(ctxRecovered, {
+        type: 'line',
+        data: {
+
+            labels: arrDate,
+            datasets: [{
+                label: 'Recovered',
+                backgroundColor: 'green',
+                borderColor: 'green',
+                data: arrPeopleRecovered
+            }]
+        },
         options: {}
     });
 }
@@ -75,10 +167,13 @@ const renderChart = () => {
     } else {
         url = `https://api.covid19api.com/world?from=${D.toISOString()}&to=${globalConst.dataAPI.lastUpdate}`;
     }
+    
     getChartData(url)
         .then((dataInfo) => {
             console.log(dataInfo);
-            makeTable(dataInfo);
+            makeTableDeath(dataInfo);
+            makeTableConfirmed(dataInfo);
+            makeTableRecovered(dataInfo);
         }).catch((err) => {
             console.log(err);
         });;
