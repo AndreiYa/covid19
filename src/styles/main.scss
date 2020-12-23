@@ -59,11 +59,7 @@ header {
 }
 
 .box-full {
-<<<<<<< HEAD
     position: fixed !important;
-=======
-    position: absolute !important;
->>>>>>> 4a6eec1b5c2eecc757dc94d87fef3718d01c9fef
     width: calc(100% - 20px) !important;
     height: calc(100% - 20px) !important;
     left: 10px !important;
@@ -235,10 +231,7 @@ h4 {
     position: relative;
     grid-area: cases;
     background: rgb(17, 17, 17);
-<<<<<<< HEAD
     overflow: hidden;
-=======
->>>>>>> 4a6eec1b5c2eecc757dc94d87fef3718d01c9fef
 }
 
 .cases-by__list {
@@ -345,11 +338,7 @@ h4 {
     }
     #schedule {
         grid-area: schedule;
-<<<<<<< HEAD
         min-height: 830px;
-=======
-        min-height: 500px;
->>>>>>> 4a6eec1b5c2eecc757dc94d87fef3718d01c9fef
     }
     #wt-sky-root {
         display: none;
