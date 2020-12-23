@@ -5,12 +5,21 @@ import moduleTemplates from './service-template';
 
 
 /* MODULE TEMPLATE START */
-const schedulePlace = document.createElement('div');
-schedulePlace.className = 'schedule-place';
-// schedulePlace.style.display = 'flex';
-// schedulePlace.style.justifyContent = 'space-between';
-// schedulePlace.innerHTML = `API schedule`;
-moduleTemplates.chart.appendChild(schedulePlace);
+const scheduleDeath = document.createElement('div');
+scheduleDeath.className = 'schedule-death';
+scheduleDeath.style.display = 'inline-block';
+
+const scheduleConfirmed = document.createElement('div');
+scheduleConfirmed.className = 'schedule-confirmed';
+scheduleConfirmed.style.display = 'inline-block';
+
+const scheduleRecovered = document.createElement('div');
+scheduleRecovered.className = 'schedule-recovered';
+scheduleRecovered.style.display = 'inline-block';
+
+moduleTemplates.chart.appendChild(scheduleDeath);
+moduleTemplates.chart.appendChild(scheduleConfirmed);
+moduleTemplates.chart.appendChild(scheduleRecovered);
 /* MODULE TEMPLATE END */
 
 const myChartDeath = document.createElement('canvas');
@@ -25,19 +34,16 @@ myChartRecovered.style.width = 100 + '%';
 myChartDeath.style.height = 150 + 'px';
 myChartConfirmed.style.height = 150 + 'px';
 myChartRecovered.style.height = 150 + 'px';
-// myChartDeath.style.display = 'inline-block';
-// myChartConfirmed.style.display = 'inline-block';
-// myChartRecovered.style.display = 'inline-block';
+myChartDeath.style.display = 'inline-block';
+myChartConfirmed.style.display = 'inline-block';
+myChartRecovered.style.display = 'inline-block';
 
-schedulePlace.append(myChartDeath)
-schedulePlace.append(myChartConfirmed)
-schedulePlace.append(myChartRecovered)
+scheduleDeath.append(myChartDeath)
+scheduleConfirmed.append(myChartConfirmed)
+scheduleRecovered.append(myChartRecovered)
 let ctxDeath = document.getElementById('myChartDeath').getContext('2d');
 let ctxConfirmed = document.getElementById('myChartConfirmed').getContext('2d');
 let ctxRecovered = document.getElementById('myChartRecovered').getContext('2d');
-
-
-
 
 
 export async function getChartData(url) {
@@ -46,6 +52,7 @@ export async function getChartData(url) {
     const data = await res.json();
     return data;
 };
+
 
 function makeTableDeath(dataInfo) {
     const arrDate = [];
@@ -149,10 +156,10 @@ const renderChart = () => {
     } else {
         url = `https://api.covid19api.com/world?from=${D.toISOString()}&to=${globalConst.dataAPI.lastUpdate}`;
     }
+    
     getChartData(url)
         .then((dataInfo) => {
             console.log(`${globalConst.currentRegion.name ? globalConst.currentRegion.name : 'All countries'}: `, dataInfo);
-            // makeTableDate(dataInfo);
             makeTableDeath(dataInfo);
             makeTableConfirmed(dataInfo);
             makeTableRecovered(dataInfo);
