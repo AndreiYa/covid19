@@ -1,3 +1,7 @@
+/* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
+/* eslint-disable import/no-cycle */
 import globalConst from "./globalData";
 
 import moduleTemplates from './service-template';
@@ -12,6 +16,7 @@ const charts = {
 
 const schedulePlace = document.createElement('div');
 schedulePlace.className = 'schedule-place';
+
 moduleTemplates.chart.appendChild(schedulePlace);
 const resizer = document.createElement("div");
 resizer.className = "box-resizer";
@@ -61,14 +66,15 @@ let ctxDaily = document.getElementById('myChartDaily').getContext('2d');
 let ctxCumulative = document.getElementById('myChartCumulative').getContext('2d');
 let ctxLog = document.getElementById('myChartLog').getContext('2d');
 
+schedulePlace.append(myCart);
+const ctx = document.getElementById("myChart").getContext("2d");
 
 export async function getChartData(url) {
-    const apiCountryUrl = url;
-    const res = await fetch(apiCountryUrl);
-    const data = await res.json();
-    return data;
-};
-
+  const apiCountryUrl = url;
+  const res = await fetch(apiCountryUrl);
+  const data = await res.json();
+  return data;
+}
 
 function makeTableDaily(data) {
     const arrDate = [];

@@ -1,8 +1,5 @@
-/* eslint-disable */
 import globalConst from "./globalData";
-
 import moduleTemplates from './service-template';
-
 
 /* MODULE TEMPLATE START */
 moduleTemplates.date.textContent = 'Last Updated at';
