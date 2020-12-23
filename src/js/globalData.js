@@ -27,6 +27,7 @@ const globalConst = {
         totalInfo: {},
         countryList: [],
         countryFlag: [],
+        countryNames: [],
     }
 };
 
@@ -43,6 +44,7 @@ getData().then((data) => {
     }
     for (const key in data.Countries) {
         globalConst.dataAPI.countryList[key] = data.Countries[key];
+        globalConst.dataAPI.countryNames.push(data.Countries[key].Country);
     }
     globalConst.dataAPI.lastUpdate = data.Date;
 
