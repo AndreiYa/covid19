@@ -1,21 +1,35 @@
-/* eslint-disable */
 import globalConst from "./globalData";
 
-import moduleTemplates from './service-template';
-
+import moduleTemplates from "./service-template";
 
 const tableMode = {
-    modes: ['Cases', 'Deaths', 'Recovered'],
-    unit: false,
-    last: false,
-    currentMode: {
-        mode: 0,
-        set _mode(value) {
-            this.mode = value;
-            changeAnimation(this.mode);
-        }
-    }
-}
+  modes: ["Cases", "Deaths", "Recovered"],
+  infoType: [{
+    name: "Confirmed",
+    color: "orange",
+  },
+  {
+    name: "Deaths",
+    color: "red",
+  }, {
+    name: "Recovered",
+    color: "#3ADF00",
+  }],
+  unit: false,
+  last: false,
+  currentMode: {
+    mode: 0,
+    set _mode(value) {
+      this.mode = value;
+      globalConst.currentChartType = `${tableMode.infoType[value].name}`;
+      globalConst.currentInfoType._name = {
+        name: `${tableMode.last ? "New" : "Total"}${tableMode.infoType[value].name}`,
+        color: tableMode.infoType[value].color,
+      };
+      changeAnimation(this.mode);
+    },
+  },
+};
 
 /* MODULE TEMPLATE START */
 
@@ -80,6 +94,13 @@ cahngerRight.textContent = 'navigate_next';
 changers.append(cahngerRight);
 cahngerRight.addEventListener('click', () => {
     changeMode(1);
+});
+const resizer = document.createElement("div");
+resizer.className = "box-resizer";
+resizer.innerHTML = "<span class='material-icons'> fullscreen_exit </span>";
+moduleTemplates.localTable.append(resizer);
+resizer.addEventListener("click", () => {
+    moduleTemplates.localTable.classList.toggle("box-full");
 });
 moduleTemplates.localTable.appendChild(changers);
 const globalInfoInner = document.createElement('div');
@@ -148,6 +169,7 @@ function selectUnit(e) {
 
 function selectLast(e) {
     tableMode.last = e.currentTarget.checked;
+    tableMode.currentMode._mode = tableMode.currentMode.mode;
     renderLocalTable();
 }
 
