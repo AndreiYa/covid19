@@ -59,10 +59,17 @@ getData().then((data) => {
         })
         .catch(err => {
             console.log('Oops!: ', err);
+            moduleTemplates.loading.style.backgroundImage = 'none';
+            moduleTemplates.loading.textContent = `Oops!\n ${err}`;
         });
     //need add sort func
     //mainTable.makeCountryList();
-});
+})
+.catch(err => {
+    console.log('Oops!: ', err);
+    moduleTemplates.loading.style.backgroundImage = 'none';
+    moduleTemplates.loading.textContent = `Oops!\n ${err}`;
+});;
 
 export async function getFlag() {
     const apiCountryFlag = "https://restcountries.eu/rest/v2/all?fields=name;population;flag";
