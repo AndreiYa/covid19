@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 /* eslint-disable import/no-cycle */
+/* eslint-disable */
 import globalConst from "./globalData";
 
 import moduleTemplates from './service-template';

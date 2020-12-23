@@ -7,6 +7,7 @@
 /* eslint-disable guard-for-in */
 /* eslint-disable no-undef */
 /* eslint-disable no-restricted-syntax */
+/* eslint-disable */
 import globalConst from "./globalData";
 import { map } from "./service-template";
 import * as json from "./countries.json";

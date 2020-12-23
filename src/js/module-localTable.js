@@ -1,3 +1,4 @@
+/* eslint-disable */
 import globalConst from "./globalData";
 
 import moduleTemplates from "./service-template";
