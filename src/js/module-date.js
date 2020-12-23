@@ -1,8 +1,5 @@
-/* eslint-disable */
 import globalConst from "./globalData";
-
 import moduleTemplates from './service-template';
-
 
 /* MODULE TEMPLATE START */
 moduleTemplates.date.textContent = 'Last Updated at';
@@ -13,7 +10,6 @@ moduleTemplates.date.appendChild(dateTimeBlock);
 /* MODULE TEMPLATE END */
 
 const renderDate = () => {
-    // console.log('date: ', globalConst.currentRegion.name);
     dateTimeBlock.innerHTML = `${globalConst.dataAPI.lastUpdate}`
 }
 

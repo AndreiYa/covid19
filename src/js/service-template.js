@@ -2,6 +2,10 @@
 const body = document.body;
 
 //Каркас
+const loadingScreen = document.createElement('div');
+loadingScreen.className = 'loading';
+body.append(loadingScreen);
+
 const header = document.createElement('header');
 
 header.id = 'pageHeader';
@@ -38,5 +42,6 @@ export default {
     localTable: global,
     date: dateBlock,
     chart: schedule,
-    footer: footer
+    footer: footer,
+    loading: loadingScreen
 }
