@@ -24,6 +24,52 @@ header {
     justify-content: space-between;
 }
 
+.loading {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(17, 17, 17);
+    left: 0;
+    top: 0;
+    background-image: url("../images/loading.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 5000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box-resizer {
+    width: 1.4rem;
+    height: 1.4rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 999;
+    background-color: #333;
+    border: 1px solid rgb(85, 85, 85);
+    span {
+        font-size: 1.1rem;
+    }
+}
+
+.box-full {
+    position: fixed !important;
+    width: calc(100% - 20px) !important;
+    height: calc(100% - 20px) !important;
+    left: 10px !important;
+    top: 10px !important;
+    z-index: 2000;
+    .cases-by__list {
+        max-height: none;
+    }
+}
+
 .logo__wrapper {
     display: flex;
     align-items: center;
@@ -32,21 +78,23 @@ header {
 .search__wrapper {
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .search__input {
     width: 150px;
     height: 25px;
-    border-radius: 10px;
     background-color: #202020;
     margin-right: 10px;
     color: lightgray;
+    padding: 5px;
     font-size: 18px;
-    outline: 0;
+    outline: none;
+    border: none
 }
 
 .search__btn {
-    font-size: 16px;
+    font-size: 19px;
     border: 1px solid lightgray;
     padding: 5px;
     cursor: pointer;
@@ -56,7 +104,7 @@ header {
     }
 }
 
-.map__legend{
+.map__legend {
     position: absolute;
     width: 200px;
     height: 80px;
@@ -92,7 +140,6 @@ header {
 .legend__confirmed.none,
 .legend__recovered.none {
     display: none;
-
 }
 
 h4 {
@@ -113,6 +160,56 @@ h4 {
     font-size: 2rem;
     display: flex;
     align-items: center;
+    .autocomplete {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        width: calc(100% - 4rem);
+        margin-left: 2rem;
+        margin-top: 1rem;
+    }
+    
+    .autocomplete * {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    input[type=text] {
+        background-color: #f1f1f1;
+        width: 100%;
+        color: black;
+    }
+    
+    .autocomplete-items {
+        position: absolute;
+        border-bottom: none;
+        border-top: none;
+        z-index: 800;
+        top: 100%;
+        width: 160px;
+        left: 0;
+        right: 0;
+        max-height: 300px;
+        overflow-y: scroll;
+        font-size: 1rem;
+    }
+    
+    .autocomplete-items div {
+        padding: 10px;
+        cursor: pointer;
+        background-color: #fff;
+        border-bottom: 1px solid #f1f1f1;
+        color: black;
+    }
+    
+    .autocomplete-items div:hover {
+        /*when hovering an item:*/
+        background-color: #e9e9e9;
+    }
+    
+    .autocomplete-active {
+        /*when navigating through the items using the arrow keys:*/
+        background-color: DodgerBlue !important;
+        color: #ffffff;
+    }
 }
 
 #pageFooter {
@@ -131,11 +228,14 @@ h4 {
 }
 
 #cases {
+    position: relative;
     grid-area: cases;
+    background: rgb(17, 17, 17);
+    overflow: hidden;
 }
 
 .cases-by__list {
-    max-height: 300px;
+    max-height: 230px;
     overflow-y: scroll;
     .country__item-wrapper {
         border: none;
@@ -157,6 +257,7 @@ h4 {
 }
 
 #global {
+    position: relative;
     grid-area: global;
     overflow: hidden;
     background-color: #333;
@@ -174,13 +275,24 @@ h4 {
 }
 
 #schedule {
+    position: relative;
     grid-area: schedule;
     background-color: #333;
     border: 1px solid rgb(85, 85, 85);
+
 }
 
 #wt-sky-root {
     display: none;
+}
+
+#schedule {
+    display: flex;
+}
+.schedule-death,
+.schedule-confirmed,
+.schedule-recovered {
+    width: 33%;
 }
 
 @media all and (max-width: 768px) {
@@ -216,6 +328,7 @@ h4 {
     }
     #cases {
         grid-area: cases;
+        min-height: 400px;
     }
     #global {
         grid-area: global;
@@ -225,10 +338,18 @@ h4 {
     }
     #schedule {
         grid-area: schedule;
-        min-height: 180px;
+        min-height: 830px;
     }
     #wt-sky-root {
         display: none;
+    }
+    #schedule {
+        flex-direction: column;
+    }
+    .schedule-death,
+    .schedule-confirmed,
+    .schedule-recovered {
+        width: 100%;
     }
 }
 
@@ -370,6 +491,7 @@ h4 {
     border: 1px solid rgb(85, 85, 85);
     padding: 5px;
     display: flex;
+    height: 3rem;
     align-items: center;
     flex-direction: column;
     .global-cases__count {
@@ -382,6 +504,8 @@ h4 {
     background-color: #333;
     border: 1px solid rgb(85, 85, 85);
     padding: 5px;
+    height: calc(100% - 3.8rem);
+    overflow-y: scroll;
     .title-text {
         word-wrap: break-word;
         font-size: 0.9rem;
@@ -420,3 +544,4 @@ li {
     width: 100%;
     height: 100%;
 }
+

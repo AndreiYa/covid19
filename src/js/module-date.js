@@ -1,20 +1,17 @@
-/* eslint-disable */
+/* eslint-disable import/no-cycle */
 import globalConst from "./globalData";
-
-import moduleTemplates from './service-template';
-
+import moduleTemplates from "./service-template";
 
 /* MODULE TEMPLATE START */
-moduleTemplates.date.textContent = 'Last Updated at';
-const dateTimeBlock = document.createElement('time');
-dateTimeBlock.setAttribute('datetime', '<дата и время>');
-dateTimeBlock.innerHTML = `Date`
+moduleTemplates.date.textContent = "Last Updated at";
+const dateTimeBlock = document.createElement("time");
+dateTimeBlock.setAttribute("datetime", "<дата и время>");
+dateTimeBlock.innerHTML = "Date";
 moduleTemplates.date.appendChild(dateTimeBlock);
 /* MODULE TEMPLATE END */
 
 const renderDate = () => {
-    // console.log('date: ', globalConst.currentRegion.name);
-    dateTimeBlock.innerHTML = `${globalConst.dataAPI.lastUpdate}`
-}
+  dateTimeBlock.innerHTML = `${globalConst.dataAPI.lastUpdate}`;
+};
 
 export default renderDate;

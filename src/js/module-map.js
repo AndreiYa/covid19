@@ -22,6 +22,13 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
   zoomOffset: -1,
   accessToken: "pk.eyJ1IjoiYW5kcmVpeWEiLCJhIjoiY2tpcnBqeGFmMGUyZTJ6bjRzdnlycjRpcyJ9.X_IoWStY2eEjv2duSjMIiA",
 }).addTo(mymap);
+const resizer = document.createElement("div");
+resizer.className = "box-resizer";
+resizer.innerHTML = "<span class='material-icons'> fullscreen_exit </span>";
+map.append(resizer);
+resizer.addEventListener("click", () => {
+  map.classList.toggle("box-full");
+});
 /* MODULE TEMPLATE END */
 
 let switcher = true;
