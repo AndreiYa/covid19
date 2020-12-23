@@ -13,7 +13,6 @@ moduleTemplates.date.appendChild(dateTimeBlock);
 /* MODULE TEMPLATE END */
 
 const renderDate = () => {
-    console.log('date: ', globalConst.currentRegion.name);
     dateTimeBlock.innerHTML = `${globalConst.dataAPI.lastUpdate}`
 }
 

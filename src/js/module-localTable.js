@@ -1,21 +1,34 @@
-/* eslint-disable */
 import globalConst from "./globalData";
 
-import moduleTemplates from './service-template';
-
+import moduleTemplates from "./service-template";
 
 const tableMode = {
-    modes: ['Cases', 'Deaths', 'Recovered'],
-    unit: false,
-    last: false,
-    currentMode: {
-        mode: 0,
-        set _mode(value) {
-            this.mode = value;
-            changeAnimation(this.mode);
-        }
-    }
-}
+  modes: ["Cases", "Deaths", "Recovered"],
+  infoType: [{
+    name: "Confirmed",
+    color: "orange",
+  },
+  {
+    name: "Deaths",
+    color: "red",
+  }, {
+    name: "Recovered",
+    color: "#3ADF00",
+  }],
+  unit: false,
+  last: false,
+  currentMode: {
+    mode: 0,
+    set _mode(value) {
+      this.mode = value;
+      globalConst.currentInfoType._name = {
+        name: `${tableMode.last ? "New" : "Total"}${tableMode.infoType[value].name}`,
+        color: tableMode.infoType[value].color,
+      };
+      changeAnimation(this.mode);
+    },
+  },
+};
 
 /* MODULE TEMPLATE START */
 
@@ -155,6 +168,7 @@ function selectUnit(e) {
 
 function selectLast(e) {
     tableMode.last = e.currentTarget.checked;
+    tableMode.currentMode._mode = tableMode.currentMode.mode;
     renderLocalTable();
 }
 

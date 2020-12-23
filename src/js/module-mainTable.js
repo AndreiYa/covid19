@@ -14,9 +14,6 @@ casesBy.innerHTML = `
       <h4 class="title-text"><span>Cases by</span><span>Country/Region/Sovereignty</span></h4>
       `
 moduleTemplates.mainTable.appendChild(casesBy);
-const casesByList = document.createElement('ul');
-casesByList.className = 'cases-by__list';
-casesBy.appendChild(casesByList);
 const resizer = document.createElement("div");
 resizer.className = "box-resizer";
 resizer.innerHTML = "<span class='material-icons'> fullscreen_exit </span>";
@@ -28,6 +25,10 @@ resizer.addEventListener("click", () => {
 /* MODULE TEMPLATE END */
 
 export function makeCountryList() {
+    casesBy.removeChild(casesBy.lastChild);
+    const casesByList = document.createElement('ul');
+    casesByList.className = 'cases-by__list';
+    casesBy.appendChild(casesByList);
     globalConst.dataAPI.countryList.forEach((el) => {
         const countryItem = document.createElement("li");
         const countryName = document.createElement("div");
@@ -41,8 +42,8 @@ export function makeCountryList() {
 
         countryItem.setAttribute("country", el.Country);
         countryName.textContent = el.Country;
-        countryStat.textContent = el.TotalConfirmed;
-
+        countryStat.textContent = el[globalConst.currentInfoType.name.name];
+        countryStat.style.color = globalConst.currentInfoType.name.color;
         casesByList.append(countryItem);
         countryItem.append(countryFlag, countryName, countryStat);
 
@@ -66,4 +67,5 @@ export function renderMainTable() {
 <h4 class="title-text">Global Cases</h4>
 <span class="global-cases__count">${globalConst.dataAPI.totalInfo.TotalConfirmed}</span>
 `
+    makeCountryList();
 }

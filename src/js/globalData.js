@@ -2,16 +2,22 @@
 
 import renderAll from "./service-renderContent";
 import * as mainTable from './module-mainTable';
+import moduleTemplates from "./service-template";
 
 const globalConst = {
     currentRegion: {
         name: undefined,
-        get _name() {
-            console.log('getter!');
-            return this.name;
+        set _name(value) {
+            this.name = value;
+            renderAll();
+        }
+    },
+    currentInfoType: {
+        name: {
+            name: "TotalConfirmed",
+            color: "orange"
         },
         set _name(value) {
-            console.log('setter!');
             this.name = value;
             renderAll();
         }
@@ -40,9 +46,22 @@ getData().then((data) => {
     }
     globalConst.dataAPI.lastUpdate = data.Date;
 
-    globalConst.currentRegion._name = undefined;
+    getFlag().then((dataFlag) => {
+
+            for (const key in dataFlag) {
+                globalConst.dataAPI.countryFlag[key] = dataFlag[key];
+            }
+
+            globalConst.currentRegion._name = undefined;
+            setTimeout(() => {
+                moduleTemplates.loading.style.display = "none";
+            }, 2000);
+        })
+        .catch(err => {
+            console.log('Oops!: ', err);
+        });
     //need add sort func
-    mainTable.makeCountryList();
+    //mainTable.makeCountryList();
 });
 
 export async function getFlag() {
@@ -52,15 +71,5 @@ export async function getFlag() {
 
     return dataFlag;
 }
-
-getFlag().then((dataFlag) => {
-
-    for (const key in dataFlag) {
-            globalConst.dataAPI.countryFlag[key] = dataFlag[key];
-        }
-    })
-    .catch(err => {
-        console.log('Oops!: ', err);
-    });
 
 export default globalConst;
