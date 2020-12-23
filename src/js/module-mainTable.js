@@ -21,12 +21,17 @@ resizer.className = "box-resizer";
 resizer.innerHTML = "<span class='material-icons'> fullscreen_exit </span>";
 moduleTemplates.mainTable.append(resizer);
 resizer.addEventListener("click", () => {
+<<<<<<< HEAD
   moduleTemplates.mainTable.classList.toggle("box-full");
+=======
+    moduleTemplates.mainTable.classList.toggle("box-full");
+>>>>>>> 4a6eec1b5c2eecc757dc94d87fef3718d01c9fef
 });
 
 /* MODULE TEMPLATE END */
 
 export function makeCountryList() {
+<<<<<<< HEAD
   casesBy.removeChild(casesBy.lastChild);
   const casesByList = document.createElement("ul");
   casesByList.className = "cases-by__list";
@@ -53,6 +58,35 @@ export function makeCountryList() {
       if (countryItem.getAttribute("country") === el.name) {
         countryFlag.style.background = `url("${el.flag}") center center/cover no-repeat`;
       }
+=======
+    casesBy.removeChild(casesBy.lastChild);
+    const casesByList = document.createElement('ul');
+    casesByList.className = 'cases-by__list';
+    casesBy.appendChild(casesByList);
+    globalConst.dataAPI.countryList.forEach((el) => {
+        const countryItem = document.createElement("li");
+        const countryName = document.createElement("div");
+        const countryStat = document.createElement("div");
+        const countryFlag = document.createElement("div");
+
+        countryItem.className = "country__item-wrapper";
+        countryName.className = "country__item-name";
+        countryStat.className = "country__item-stat";
+        countryFlag.className = "country__item-flag";
+
+        countryItem.setAttribute("country", el.Country);
+        countryName.textContent = el.Country;
+        countryStat.textContent = el[globalConst.currentInfoType.name.name];
+        countryStat.style.color = globalConst.currentInfoType.name.color;
+        casesByList.append(countryItem);
+        countryItem.append(countryFlag, countryName, countryStat);
+
+        globalConst.dataAPI.countryFlag.forEach((el) => {
+            if (countryItem.getAttribute("country") === el.name) {
+                countryFlag.style.background = `url("${el.flag}") center center/cover no-repeat`;
+            }
+        });
+>>>>>>> 4a6eec1b5c2eecc757dc94d87fef3718d01c9fef
     });
   });
 
@@ -68,6 +102,12 @@ export function renderMainTable() {
   casesInfo.innerHTML = `
 <h4 class="title-text">Global Cases</h4>
 <span class="global-cases__count">${globalConst.dataAPI.totalInfo.TotalConfirmed}</span>
+<<<<<<< HEAD
 `;
   makeCountryList();
 }
+=======
+`
+    makeCountryList();
+}
+>>>>>>> 4a6eec1b5c2eecc757dc94d87fef3718d01c9fef

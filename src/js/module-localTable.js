@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable import/no-cycle */
+=======
+>>>>>>> 4a6eec1b5c2eecc757dc94d87fef3718d01c9fef
 import globalConst from "./globalData";
 
 import moduleTemplates from "./service-template";
@@ -106,6 +109,13 @@ moduleTemplates.localTable.append(resizer);
 resizer.addEventListener("click", () => {
   moduleTemplates.localTable.classList.toggle("box-full");
 });
+const resizer = document.createElement("div");
+resizer.className = "box-resizer";
+resizer.innerHTML = "<span class='material-icons'> fullscreen_exit </span>";
+moduleTemplates.localTable.append(resizer);
+resizer.addEventListener("click", () => {
+    moduleTemplates.localTable.classList.toggle("box-full");
+});
 moduleTemplates.localTable.appendChild(changers);
 const globalInfoInner = document.createElement("div");
 globalInfoInner.className = "global-info-inner";
@@ -172,9 +182,15 @@ function selectUnit(e) {
 }
 
 function selectLast(e) {
+<<<<<<< HEAD
   tableMode.last = e.currentTarget.checked;
   tableMode.currentMode._mode = tableMode.currentMode.mode;
   renderLocalTable();
+=======
+    tableMode.last = e.currentTarget.checked;
+    tableMode.currentMode._mode = tableMode.currentMode.mode;
+    renderLocalTable();
+>>>>>>> 4a6eec1b5c2eecc757dc94d87fef3718d01c9fef
 }
 
 function countriesInfo(country, target, mode, color) {
