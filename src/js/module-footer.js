@@ -1,7 +1,8 @@
 /* eslint-disable */
 import moduleTemplates from './service-template';
+import globalConst from "./globalData";
 
 
 /* MODULE TEMPLATE START */
-moduleTemplates.footer.innerHTML = `Footer`;
+moduleTemplates.footer.innerHTML = `192 countries/regions`;
 /* MODULE TEMPLATE END */
