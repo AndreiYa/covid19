@@ -16,18 +16,18 @@ import * as json from "./countries.json";
 export const mymap = L.map("mapid").setView([15, 0], 2);
 
 L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-    maxZoom: 18,
-    id: "mapbox/dark-v10",
-    tileSize: 512,
-    zoomOffset: -1,
-    accessToken: "pk.eyJ1IjoiYW5kcmVpeWEiLCJhIjoiY2tpcnBqeGFmMGUyZTJ6bjRzdnlycjRpcyJ9.X_IoWStY2eEjv2duSjMIiA",
+  maxZoom: 18,
+  id: "mapbox/dark-v10",
+  tileSize: 512,
+  zoomOffset: -1,
+  accessToken: "pk.eyJ1IjoiYW5kcmVpeWEiLCJhIjoiY2tpcnBqeGFmMGUyZTJ6bjRzdnlycjRpcyJ9.X_IoWStY2eEjv2duSjMIiA",
 }).addTo(mymap);
 const resizer = document.createElement("div");
 resizer.className = "box-resizer";
 resizer.innerHTML = "<span class='material-icons'> fullscreen_exit </span>";
 map.append(resizer);
 resizer.addEventListener("click", () => {
-    map.classList.toggle("box-full");
+  map.classList.toggle("box-full");
 });
 /* MODULE TEMPLATE END */
 
@@ -68,10 +68,10 @@ const renderMap = () => {
   }
 };
 async function getCountry(lat, lng) {
-    const apiCountryUrl = `https://api.opencagedata.com/geocode/v1/json?key=1b5423d072234774beccddea5b1967b8&q=${lat}+${lng}&pretty=1&language=en`;
-    const res = await fetch(apiCountryUrl);
-    const data = await res.json();
-    return data;
+  const apiCountryUrl = `https://api.opencagedata.com/geocode/v1/json?key=1b5423d072234774beccddea5b1967b8&q=${lat}+${lng}&pretty=1&language=en`;
+  const res = await fetch(apiCountryUrl);
+  const data = await res.json();
+  return data;
 }
 
 const mapLegend = document.createElement("div");
