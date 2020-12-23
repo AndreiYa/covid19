@@ -97,6 +97,25 @@ function makeTableDaily(data) {
     },
     options: {},
   });
+    data.forEach((el) => {
+        arrDate.push(el.date);
+        arrParam.push(el[`New${globalConst.currentChartType}`]);
+    });
+
+    charts.daily = new Chart(ctxDaily, {
+        type: 'line',
+        data: {
+
+            labels: arrDate,
+            datasets: [{
+                label: 'Daily',
+                backgroundColor: globalConst.currentInfoType.name.color,
+                borderColor: globalConst.currentInfoType.name.color,
+                data: arrParam
+            }]
+        },
+        options: {}
+    });
 }
 
 function makeTableCumulative(data) {
