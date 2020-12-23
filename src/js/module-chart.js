@@ -3,6 +3,11 @@ import globalConst from "./globalData";
 
 import moduleTemplates from './service-template';
 
+const charts = {
+    death: undefined,
+    cases: undefined,
+    recovered: undefined
+}
 
 /* MODULE TEMPLATE START */
 
@@ -15,6 +20,7 @@ resizer.innerHTML = "<span class='material-icons'> fullscreen_exit </span>";
 moduleTemplates.chart.append(resizer);
 resizer.addEventListener("click", () => {
     moduleTemplates.chart.classList.toggle("box-full");
+    renderChart();
 });
 const scheduleDeath = document.createElement('div');
 scheduleDeath.className = 'schedule-death';
@@ -80,7 +86,7 @@ function makeTableDeath(dataInfo) {
     }
 
 
-    let chart = new Chart(ctxDeath, {
+    charts.death = new Chart(ctxDeath, {
         type: 'line',
         data: {
 
@@ -111,7 +117,7 @@ function makeTableConfirmed(dataInfo) {
     }
 
 
-    let chart = new Chart(ctxConfirmed, {
+    charts.cases = new Chart(ctxConfirmed, {
         type: 'line',
         data: {
 
@@ -142,7 +148,7 @@ function makeTableRecovered(dataInfo) {
     }
 
 
-    let chart = new Chart(ctxRecovered, {
+    charts.recovered = new Chart(ctxRecovered, {
         type: 'line',
         data: {
 
@@ -159,6 +165,10 @@ function makeTableRecovered(dataInfo) {
 }
 
 const renderChart = () => {
+    Object.keys(charts).forEach((el) => {
+       if (charts[el] !== undefined) charts[el].destroy();
+    })
+    ctxDeath.clearRect(0, 0, ctxDeath.width, ctxDeath.height);
     let url;
     const D = new Date(globalConst.dataAPI.lastUpdate);
     D.setDate(D.getDate() - 29)
