@@ -1,12 +1,11 @@
-/* eslint-disable */
 import globalConst from "./globalData";
 
 import moduleTemplates from './service-template';
 
 const charts = {
-    death: undefined,
-    cases: undefined,
-    recovered: undefined
+    daily: undefined,
+    cumulative: undefined,
+    log: undefined
 }
 
 /* MODULE TEMPLATE START */
@@ -39,28 +38,28 @@ moduleTemplates.chart.appendChild(scheduleConfirmed);
 moduleTemplates.chart.appendChild(scheduleRecovered);
 /* MODULE TEMPLATE END */
 
-const myChartDeath = document.createElement('canvas');
-const myChartConfirmed = document.createElement('canvas');
-const myChartRecovered = document.createElement('canvas');
-myChartDeath.id = 'myChartDeath';
-myChartConfirmed.id = 'myChartConfirmed';
-myChartRecovered.id = 'myChartRecovered';
-myChartDeath.style.width = 100 + '%';
-myChartConfirmed.style.width = 100 + '%';
-myChartRecovered.style.width = 100 + '%';
-myChartDeath.style.height = 150 + 'px';
-myChartConfirmed.style.height = 150 + 'px';
-myChartRecovered.style.height = 150 + 'px';
-myChartDeath.style.display = 'inline-block';
-myChartConfirmed.style.display = 'inline-block';
-myChartRecovered.style.display = 'inline-block';
+const myChartDaily = document.createElement('canvas');
+const myChartCumulative = document.createElement('canvas');
+const myChartLog = document.createElement('canvas');
+myChartDaily.id = 'myChartDaily';
+myChartCumulative.id = 'myChartCumulative';
+myChartLog.id = 'myChartLog';
+myChartDaily.style.width = 100 + '%';
+myChartCumulative.style.width = 100 + '%';
+myChartLog.style.width = 100 + '%';
+myChartDaily.style.height = 150 + 'px';
+myChartCumulative.style.height = 150 + 'px';
+myChartLog.style.height = 150 + 'px';
+myChartDaily.style.display = 'inline-block';
+myChartCumulative.style.display = 'inline-block';
+myChartLog.style.display = 'inline-block';
 
-scheduleDeath.append(myChartDeath)
-scheduleConfirmed.append(myChartConfirmed)
-scheduleRecovered.append(myChartRecovered)
-let ctxDeath = document.getElementById('myChartDeath').getContext('2d');
-let ctxConfirmed = document.getElementById('myChartConfirmed').getContext('2d');
-let ctxRecovered = document.getElementById('myChartRecovered').getContext('2d');
+scheduleDeath.append(myChartDaily)
+scheduleConfirmed.append(myChartCumulative)
+scheduleRecovered.append(myChartLog)
+let ctxDaily = document.getElementById('myChartDaily').getContext('2d');
+let ctxCumulative = document.getElementById('myChartCumulative').getContext('2d');
+let ctxLog = document.getElementById('myChartLog').getContext('2d');
 
 
 export async function getChartData(url) {
@@ -71,119 +70,145 @@ export async function getChartData(url) {
 };
 
 
-function makeTableDeath(dataInfo) {
+function makeTableDaily(data) {
     const arrDate = [];
-    const arrPeopleDeaths = [];
-    for (let i = 0; i < dataInfo.length; i++) {
-        //Date
-        const elDate = dataInfo[i].Date;
-        const newEl = new Date(elDate)
-        arrDate.push(newEl.toLocaleDateString());
+    const arrParam = [];
+    
+    data.forEach((el) => {
+        arrDate.push(el.date);
+        arrParam.push(el[`New${globalConst.currentChartType}`]);
+    });
 
-        //Death
-        const elDeath = dataInfo[i].Deaths;
-        arrPeopleDeaths.push(elDeath);
-    }
+    console.log('dates: ', arrDate);
+    console.log('params: ', arrParam);
 
 
-    charts.death = new Chart(ctxDeath, {
+    charts.daily = new Chart(ctxDaily, {
         type: 'line',
         data: {
 
             labels: arrDate,
             datasets: [{
-                label: 'Death',
-                backgroundColor: 'red',
-                borderColor: 'red',
-                data: arrPeopleDeaths
+                label: 'Daily',
+                backgroundColor: globalConst.currentInfoType.name.color,
+                borderColor: globalConst.currentInfoType.name.color,
+                data: arrParam
             }]
         },
         options: {}
     });
 }
 
-function makeTableConfirmed(dataInfo) {
+function makeTableCumulative(data) {
     const arrDate = [];
-    const arrPeopleConfirmed = [];
-    for (let i = 0; i < dataInfo.length; i++) {
-        //Date
-        const elDate = dataInfo[i].Date;
-        const newEl = new Date(elDate)
-        arrDate.push(newEl.toLocaleDateString());
+    const arrParam = [];
+    
+    data.forEach((el) => {
+        arrDate.push(el.date);
+        arrParam.push(el[`Total${globalConst.currentChartType}`]);
+    });
 
-        // //Confirmed
-        const elConfirmed = dataInfo[i].Confirmed;
-        arrPeopleConfirmed.push(elConfirmed);
-    }
+    console.log('dates: ', arrDate);
+    console.log('params: ', arrParam);
 
 
-    charts.cases = new Chart(ctxConfirmed, {
+    charts.cumulative = new Chart(ctxCumulative, {
         type: 'line',
         data: {
 
             labels: arrDate,
             datasets: [{
-                label: 'Confirmed',
-                backgroundColor: 'yellow',
-                borderColor: 'yellow',
-                data: arrPeopleConfirmed
+                label: 'Cumulative',
+                backgroundColor: globalConst.currentInfoType.name.color,
+                borderColor: globalConst.currentInfoType.name.color,
+                data: arrParam
             }]
         },
         options: {}
     });
 }
 
-function makeTableRecovered(dataInfo) {
+function makeTableLog(data) {
     const arrDate = [];
-    const arrPeopleRecovered = [];
-    for (let i = 0; i < dataInfo.length; i++) {
-        //Date
-        const elDate = dataInfo[i].Date;
-        const newEl = new Date(elDate)
-        arrDate.push(newEl.toLocaleDateString());
+    const arrParam = [];
+    
+    data.forEach((el) => {
+        arrDate.push(el.date);
+        arrParam.push(Math.log(el[`New${globalConst.currentChartType}`]));
+    });
 
-        // //Recovered
-        const elRecovered = dataInfo[i].Recovered;
-        arrPeopleRecovered.push(elRecovered);
-    }
+    console.log('dates: ', arrDate);
+    console.log('params: ', arrParam);
 
 
-    charts.recovered = new Chart(ctxRecovered, {
+    charts.log = new Chart(ctxLog, {
         type: 'line',
         data: {
 
             labels: arrDate,
             datasets: [{
-                label: 'Recovered',
-                backgroundColor: 'green',
-                borderColor: 'green',
-                data: arrPeopleRecovered
+                label: 'Cumulative',
+                backgroundColor: globalConst.currentInfoType.name.color,
+                borderColor: globalConst.currentInfoType.name.color,
+                data: arrParam
             }]
         },
         options: {}
     });
+}
+
+function getFormatData(data) {
+    const newData = [];
+    if (globalConst.currentRegion.name) {
+        for (let i = data.length-1; i >= data.length-30; i -=1) {
+            const cD = new Date(data[i].Date);
+            newData.push({
+                date: cD.toLocaleDateString(),
+                TotalConfirmed: data[i].Confirmed,
+                NewConfirmed: Math.abs(data[i].Confirmed - data[i - 1].Confirmed),
+                TotalDeaths: data[i].Deaths,
+                NewDeaths: Math.abs(data[i].Deaths - data[i - 1].Deaths),
+                TotalRecovered: data[i].Recovered,
+                NewRecovered: Math.abs(data[i].Recovered - data[i - 1].Recovered),
+            })
+        }
+    } else {
+        data.sort((a,b) => a.TotalConfirmed - b.TotalConfirmed);
+        const cD = new Date(globalConst.dataAPI.lastUpdate);
+        data.reverse().slice(0, 30).forEach((el, index) => {
+            newData.push({
+                date: cD.toLocaleDateString(),
+                TotalConfirmed: el.TotalConfirmed,
+                NewConfirmed: el.NewConfirmed,
+                TotalDeaths: el.TotalDeaths,
+                NewDeaths: el.NewDeaths,
+                TotalRecovered: el.TotalRecovered,
+                NewRecovered: el.NewRecovered,
+            })
+            cD.setDate(cD.getDate() - 1);
+        })
+    }
+    return newData;
 }
 
 const renderChart = () => {
     Object.keys(charts).forEach((el) => {
        if (charts[el] !== undefined) charts[el].destroy();
-    })
-    ctxDeath.clearRect(0, 0, ctxDeath.width, ctxDeath.height);
+    });
     let url;
     const D = new Date(globalConst.dataAPI.lastUpdate);
-    D.setDate(D.getDate() - 29)
+    D.setDate(D.getDate() - 35);
     if (globalConst.currentRegion.name) {
         url = `https://api.covid19api.com/country/${globalConst.currentRegion.name}?from=${D.toISOString()}&to=${globalConst.dataAPI.lastUpdate}`;
     } else {
         url = `https://api.covid19api.com/world?from=${D.toISOString()}&to=${globalConst.dataAPI.lastUpdate}`;
     }
-    
     getChartData(url)
         .then((dataInfo) => {
-            console.log(dataInfo);
-            makeTableDeath(dataInfo);
-            makeTableConfirmed(dataInfo);
-            makeTableRecovered(dataInfo);
+            const newdata = getFormatData(dataInfo).reverse();
+            makeTableDaily(newdata);
+            makeTableCumulative(newdata);
+            makeTableLog(newdata);
         }).catch((err) => {
             console.log(err);
         });;

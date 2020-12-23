@@ -21,6 +21,7 @@ const tableMode = {
     mode: 0,
     set _mode(value) {
       this.mode = value;
+      globalConst.currentChartType = `${tableMode.infoType[value].name}`;
       globalConst.currentInfoType._name = {
         name: `${tableMode.last ? "New" : "Total"}${tableMode.infoType[value].name}`,
         color: tableMode.infoType[value].color,

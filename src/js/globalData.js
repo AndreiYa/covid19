@@ -22,6 +22,7 @@ const globalConst = {
             renderAll();
         }
     },
+    currentChartType: "Confirmed",
     dataAPI: {
         lastUpdate: [],
         totalInfo: {},
